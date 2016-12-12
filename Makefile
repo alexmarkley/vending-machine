@@ -5,10 +5,10 @@ UNITY_PATH=Unity/src/
 BUILD_TEST_PATH=build/test/
 BUILD_OBJECT_PATH=build/objs/
 
-MODULES=Example
+MODULES=CoinSlot
 TEST_TARGETS=$(addsuffix Test, $(addprefix $(BUILD_TEST_PATH), $(MODULES)))
 
-CFLAGS+=-Wall -O2 -I./src -I./Unity/src
+CFLAGS+=-Wall -std=c99 -O2 -I./src -I./Unity/src
 
 all: clean test
 	@echo All Done.
