@@ -14,21 +14,25 @@ void test_CoinSlotDestroyShouldReturnNull(void) {
 void test_CoinSlotInsertShouldRejectPenniesIntoCoinReturn(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	TEST_ASSERT_EQUAL_INT16(COINSLOT_REJECTED_COINRETURN, CoinSlotInsertCoin(slot, COINSLOT_PENNY));
+	CoinSlotDestroy(slot);
 }
 
 void test_CoinSlotInsertShouldAcceptANickelAndReturnFive(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	TEST_ASSERT_EQUAL_INT16(5, CoinSlotInsertCoin(slot, COINSLOT_NICKEL));
+	CoinSlotDestroy(slot);
 }
 
 void test_CoinSlotInsertShouldAcceptADimeAndReturnTen(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	TEST_ASSERT_EQUAL_INT16(10, CoinSlotInsertCoin(slot, COINSLOT_DIME));
+	CoinSlotDestroy(slot);
 }
 
 void test_CoinSlotInsertShouldAcceptAQuarterAndReturnTwentyFive(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	TEST_ASSERT_EQUAL_INT16(25, CoinSlotInsertCoin(slot, COINSLOT_QUARTER));
+	CoinSlotDestroy(slot);
 }
 
 void test_CoinSlotInsertShouldAccumulateValueWhileInsertingCoins(void) {
@@ -36,6 +40,7 @@ void test_CoinSlotInsertShouldAccumulateValueWhileInsertingCoins(void) {
 	TEST_ASSERT_EQUAL_INT16(25, CoinSlotInsertCoin(slot, COINSLOT_QUARTER));
 	TEST_ASSERT_EQUAL_INT16(35, CoinSlotInsertCoin(slot, COINSLOT_DIME));
 	TEST_ASSERT_EQUAL_INT16(40, CoinSlotInsertCoin(slot, COINSLOT_NICKEL));
+	CoinSlotDestroy(slot);
 }
 
 void test_CoinSlotInsertShouldRejectCoinsWhenSlotIsFull(void) {
@@ -45,6 +50,7 @@ void test_CoinSlotInsertShouldRejectCoinsWhenSlotIsFull(void) {
 		CoinSlotInsertCoin(slot, COINSLOT_NICKEL);
 	}
 	TEST_ASSERT_EQUAL_INT16(COINSLOT_REJECTED_SLOTFULL, CoinSlotInsertCoin(slot, COINSLOT_NICKEL));
+	CoinSlotDestroy(slot);
 }
 
 int main(void) {
