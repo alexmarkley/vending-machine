@@ -16,5 +16,18 @@ int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin) {
 		return COINSLOT_REJECTED_COINRETURN;
 	}
 	
-	return coin;
+	//Seek an empty slot in the intake array for this coin.
+	for(uint8_t i = 0; i < COINSLOT_INTAKE_MAXCOINS; i++) {
+		//If this slot has a zero value, there is no coin stored here.
+		if(slot->intake[i] == 0) {
+			//Store this coin's value in this slot.
+			slot->intake[i] = coin;
+			//Increment this slot's current value accordingly.
+			slot->value += coin;
+			//Get out of here!
+			break;
+		}
+	}
+	
+	return slot->value;
 }

@@ -26,6 +26,13 @@ void test_CoinSlotInsertShouldAcceptAQuarterAndReturnTwentyFive(void) {
 	TEST_ASSERT_EQUAL_INT16(25, CoinSlotInsertCoin(slot, COINSLOT_QUARTER));
 }
 
+void test_CoinSlotInsertShouldAccumulateValueWhileInsertingCoins(void) {
+	CoinSlot *slot = CoinSlotCreate();
+	TEST_ASSERT_EQUAL_INT16(25, CoinSlotInsertCoin(slot, COINSLOT_QUARTER));
+	TEST_ASSERT_EQUAL_INT16(35, CoinSlotInsertCoin(slot, COINSLOT_DIME));
+	TEST_ASSERT_EQUAL_INT16(40, CoinSlotInsertCoin(slot, COINSLOT_NICKEL));
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_CoinSlotCreateShouldReturnNonNull);
@@ -33,5 +40,6 @@ int main(void) {
 	RUN_TEST(test_CoinSlotInsertShouldAcceptANickelAndReturnFive);
 	RUN_TEST(test_CoinSlotInsertShouldAcceptADimeAndReturnTen);
 	RUN_TEST(test_CoinSlotInsertShouldAcceptAQuarterAndReturnTwentyFive);
+	RUN_TEST(test_CoinSlotInsertShouldAccumulateValueWhileInsertingCoins);
 	return UNITY_END();
 	}
