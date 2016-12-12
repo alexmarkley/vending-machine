@@ -53,6 +53,17 @@ void test_CoinSlotInsertShouldRejectCoinsWhenSlotIsFull(void) {
 	CoinSlotDestroy(slot);
 }
 
+void test_CoinSlotAfterInsertingFourQuartersValueShouldReturnOneHundred(void) {
+	CoinSlot *slot = CoinSlotCreate();
+	//Insert a dollar in quarters.
+	CoinSlotInsertCoin(slot, COINSLOT_QUARTER);
+	CoinSlotInsertCoin(slot, COINSLOT_QUARTER);
+	CoinSlotInsertCoin(slot, COINSLOT_QUARTER);
+	CoinSlotInsertCoin(slot, COINSLOT_QUARTER);
+	TEST_ASSERT_EQUAL_INT16(100, CoinSlotValue(slot));
+	CoinSlotDestroy(slot);
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_CoinSlotCreateShouldReturnNonNull);
@@ -63,5 +74,6 @@ int main(void) {
 	RUN_TEST(test_CoinSlotInsertShouldAcceptAQuarterAndReturnTwentyFive);
 	RUN_TEST(test_CoinSlotInsertShouldAccumulateValueWhileInsertingCoins);
 	RUN_TEST(test_CoinSlotInsertShouldRejectCoinsWhenSlotIsFull);
+	RUN_TEST(test_CoinSlotAfterInsertingFourQuartersValueShouldReturnOneHundred);
 	return UNITY_END();
 }

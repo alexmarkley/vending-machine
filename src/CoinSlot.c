@@ -46,3 +46,8 @@ int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin) {
 	
 	return slot->value;
 }
+
+//Return the current value stored in the CoinSlot intake.
+uint16_t CoinSlotValue(CoinSlot *slot) {
+	return slot->value;
+}
