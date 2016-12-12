@@ -16,10 +16,16 @@ void test_CoinSlotInsertShouldAcceptANickelAndReturnFive(void) {
 	TEST_ASSERT_EQUAL_INT16(5, CoinSlotInsertCoin(slot, COINSLOT_NICKEL));
 }
 
+void test_CoinSlotInsertShouldAcceptADimeAndReturnTen(void) {
+	CoinSlot *slot = CoinSlotCreate();
+	TEST_ASSERT_EQUAL_INT16(10, CoinSlotInsertCoin(slot, COINSLOT_DIME));
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_CoinSlotCreateShouldReturnNonNull);
 	RUN_TEST(test_CoinSlotInsertShouldRejectPenniesIntoCoinReturn);
 	RUN_TEST(test_CoinSlotInsertShouldAcceptANickelAndReturnFive);
+	RUN_TEST(test_CoinSlotInsertShouldAcceptADimeAndReturnTen);
 	return UNITY_END();
 	}
