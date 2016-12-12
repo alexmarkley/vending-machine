@@ -16,7 +16,8 @@ enum {
 enum {
 	COINSLOT_PENNY = -1,
 	COINSLOT_NICKEL = 5,
-	COINSLOT_DIME = 10
+	COINSLOT_DIME = 10,
+	COINSLOT_QUARTER = 25
 };
 
 //Functions within this module.
