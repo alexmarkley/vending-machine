@@ -51,3 +51,11 @@ int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin) {
 uint16_t CoinSlotValue(CoinSlot *slot) {
 	return slot->value;
 }
+
+//Flush the internal state of a CoinSlot.
+void CoinSlotFlush(CoinSlot *slot) {
+	slot->value = 0;
+	for(uint8_t i = 0; i < COINSLOT_INTAKE_MAXCOINS; i++) {
+		slot->intake[i] = 0;
+	}
+}

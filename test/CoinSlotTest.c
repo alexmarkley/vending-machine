@@ -64,6 +64,17 @@ void test_CoinSlotAfterInsertingFourQuartersValueShouldReturnOneHundred(void) {
 	CoinSlotDestroy(slot);
 }
 
+void test_CoinSlotAfterFlushingInsertShouldAcceptAQuarterAndReturnTwentyFive(void) {
+	CoinSlot *slot = CoinSlotCreate();
+	//Insert a dime and a nickel.
+	CoinSlotInsertCoin(slot, COINSLOT_DIME);
+	CoinSlotInsertCoin(slot, COINSLOT_NICKEL);
+	//Flush everything out of the CoinSlot
+	CoinSlotFlush(slot);
+	TEST_ASSERT_EQUAL_INT16(25, CoinSlotInsertCoin(slot, COINSLOT_QUARTER));
+	CoinSlotDestroy(slot);
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_CoinSlotCreateShouldReturnNonNull);
@@ -75,5 +86,6 @@ int main(void) {
 	RUN_TEST(test_CoinSlotInsertShouldAccumulateValueWhileInsertingCoins);
 	RUN_TEST(test_CoinSlotInsertShouldRejectCoinsWhenSlotIsFull);
 	RUN_TEST(test_CoinSlotAfterInsertingFourQuartersValueShouldReturnOneHundred);
+	RUN_TEST(test_CoinSlotAfterFlushingInsertShouldAcceptAQuarterAndReturnTwentyFive);
 	return UNITY_END();
 }

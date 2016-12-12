@@ -29,6 +29,8 @@ typedef struct CoinSlot {
 CoinSlot *CoinSlotCreate(void);
 CoinSlot *CoinSlotDestroy(CoinSlot *slot);
 int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin);
+uint16_t CoinSlotValue(CoinSlot *slot);
+void CoinSlotFlush(CoinSlot *slot);
 
 #define __VENDING_MACHINE_COINSLOT_H
 #endif
