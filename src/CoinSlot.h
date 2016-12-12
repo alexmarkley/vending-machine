@@ -5,7 +5,8 @@
 
 //Enumerations within this module.
 enum {
-	COINSLOT_REJECTED_COINRETURN = -1
+	COINSLOT_REJECTED_COINRETURN = -1,
+	COINSLOT_REJECTED_SLOTFULL = -2
 };
 
 enum {

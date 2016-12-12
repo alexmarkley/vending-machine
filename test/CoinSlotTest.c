@@ -33,6 +33,15 @@ void test_CoinSlotInsertShouldAccumulateValueWhileInsertingCoins(void) {
 	TEST_ASSERT_EQUAL_INT16(40, CoinSlotInsertCoin(slot, COINSLOT_NICKEL));
 }
 
+void test_CoinSlotInsertShouldRejectCoinsWhenSlotIsFull(void) {
+	CoinSlot *slot = CoinSlotCreate();
+	//Insert the maximum number of coins.
+	for(int i = 0; i < COINSLOT_INTAKE_MAXCOINS; i++) {
+		CoinSlotInsertCoin(slot, COINSLOT_NICKEL);
+	}
+	TEST_ASSERT_EQUAL_INT16(COINSLOT_REJECTED_SLOTFULL, CoinSlotInsertCoin(slot, COINSLOT_NICKEL));
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_CoinSlotCreateShouldReturnNonNull);
@@ -41,5 +50,6 @@ int main(void) {
 	RUN_TEST(test_CoinSlotInsertShouldAcceptADimeAndReturnTen);
 	RUN_TEST(test_CoinSlotInsertShouldAcceptAQuarterAndReturnTwentyFive);
 	RUN_TEST(test_CoinSlotInsertShouldAccumulateValueWhileInsertingCoins);
+	RUN_TEST(test_CoinSlotInsertShouldRejectCoinsWhenSlotIsFull);
 	return UNITY_END();
-	}
+}
