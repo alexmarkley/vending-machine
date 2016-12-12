@@ -10,6 +10,11 @@ CoinSlot *CoinSlotCreate(void) {
 }
 
 //Insert a coin into the CoinSlot
-int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t *coin) {
-	return COINSLOT_REJECTED_COINRETURN;
+int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin) {
+	//Check coin value for validity.
+	if(coin != COINSLOT_NICKEL) {
+		return COINSLOT_REJECTED_COINRETURN;
+	}
+	
+	return coin;
 }

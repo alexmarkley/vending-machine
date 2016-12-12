@@ -14,12 +14,13 @@ enum {
 };
 
 enum {
-	COINSLOT_PENNY = -1
+	COINSLOT_PENNY = -1,
+	COINSLOT_NICKEL = 5
 };
 
 //Functions within this module.
 CoinSlot *CoinSlotCreate(void);
-int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t *coin);
+int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin);
 
 #define __VENDING_MACHINE_COINSLOT_H
 #endif
