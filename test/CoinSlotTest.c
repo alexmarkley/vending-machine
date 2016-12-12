@@ -6,6 +6,11 @@ void test_CoinSlotCreateShouldReturnNonNull(void) {
 	TEST_ASSERT_NOT_NULL(CoinSlotCreate());
 }
 
+void test_CoinSlotDestroyShouldReturnNull(void) {
+	CoinSlot *slot = CoinSlotCreate();
+	TEST_ASSERT_NULL(CoinSlotDestroy(slot));
+}
+
 void test_CoinSlotInsertShouldRejectPenniesIntoCoinReturn(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	TEST_ASSERT_EQUAL_INT16(COINSLOT_REJECTED_COINRETURN, CoinSlotInsertCoin(slot, COINSLOT_PENNY));
@@ -45,6 +50,7 @@ void test_CoinSlotInsertShouldRejectCoinsWhenSlotIsFull(void) {
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_CoinSlotCreateShouldReturnNonNull);
+	RUN_TEST(test_CoinSlotDestroyShouldReturnNull);
 	RUN_TEST(test_CoinSlotInsertShouldRejectPenniesIntoCoinReturn);
 	RUN_TEST(test_CoinSlotInsertShouldAcceptANickelAndReturnFive);
 	RUN_TEST(test_CoinSlotInsertShouldAcceptADimeAndReturnTen);

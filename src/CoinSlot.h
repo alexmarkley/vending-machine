@@ -27,6 +27,7 @@ typedef struct CoinSlot {
 
 //Functions within this module.
 CoinSlot *CoinSlotCreate(void);
+CoinSlot *CoinSlotDestroy(CoinSlot *slot);
 int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin);
 
 #define __VENDING_MACHINE_COINSLOT_H

@@ -10,6 +10,12 @@ CoinSlot *CoinSlotCreate(void) {
 	return s;
 }
 
+//Destroy a CoinSlot object.
+CoinSlot *CoinSlotDestroy(CoinSlot *slot) {
+	free(slot);
+	return NULL;
+}
+
 //Insert a coin into the CoinSlot
 int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin) {
 	//Check coin value for validity.
