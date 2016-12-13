@@ -10,6 +10,8 @@ typedef struct Product {
 
 //Functions within this module.
 Product *ProductCreate(void);
+Product *ProductDestroy(Product *prod);
+
 
 #define __VENDING_MACHINE_PRODUCT_H
 #endif
