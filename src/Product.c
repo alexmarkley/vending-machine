@@ -33,6 +33,9 @@ int8_t ProductGetStock(Product *prod) {
 
 //Allow setting the current value of a Product object.
 bool ProductSetValue(Product *prod, uint8_t v) {
+	if(v > 127) {
+		return false;
+	}
 	prod->value = v;
 	return true;
 }
