@@ -7,6 +7,7 @@
 Product *ProductCreate(void) {
 	Product *p = calloc(1, sizeof(Product));
 	p->stock = PRODUCT_STOCK_UNINITIALIZED;
+	p->value = PRODUCT_VALUE_UNINITIALIZED;
 	return p;
 }
 
@@ -28,4 +29,9 @@ bool ProductSetStock(Product *prod, uint8_t s) {
 //Return the current stock of a Product object.
 int8_t ProductGetStock(Product *prod) {
 	return prod->stock;
+}
+
+//Return the current value of a Product object.
+int8_t ProductGetValue(Product *prod) {
+	return prod->value;
 }
