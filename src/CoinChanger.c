@@ -9,3 +9,8 @@ CoinChanger *CoinChangerCreate(void) {
 	return c;
 }
 
+//Destroy a CoinChanger object.
+CoinChanger *CoinChangerDestroy(CoinChanger *changer) {
+	free(changer);
+	return NULL;
+}

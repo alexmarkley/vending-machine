@@ -10,6 +10,7 @@ typedef struct CoinChanger {
 
 //Functions within this module.
 CoinChanger *CoinChangerCreate(void);
+CoinChanger *CoinChangerDestroy(CoinChanger *changer);
 
 #define __VENDING_MACHINE_COINCHANGER_H
 #endif
