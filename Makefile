@@ -5,7 +5,7 @@ UNITY_PATH=Unity/src/
 BUILD_TEST_PATH=build/test/
 BUILD_OBJECT_PATH=build/objs/
 
-MODULES=CoinSlot Product
+MODULES=CoinSlot Product CoinChanger
 TEST_TARGETS=$(addsuffix Test, $(addprefix $(BUILD_TEST_PATH), $(MODULES)))
 
 CFLAGS+=-Wall -std=c99 -O2 -I./src -I./Unity/src
