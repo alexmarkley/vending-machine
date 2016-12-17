@@ -16,6 +16,11 @@ Product *ProductDestroy(Product *prod) {
 	return NULL;
 }
 
+//Allow setting the current stock of a Product object.
+bool ProductSetStock(Product *prod, uint8_t s) {
+	return true;
+}
+
 //Return the current stock of a Product object.
 int8_t ProductGetStock(Product *prod) {
 	return prod->stock;
