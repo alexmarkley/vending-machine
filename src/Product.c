@@ -18,6 +18,9 @@ Product *ProductDestroy(Product *prod) {
 
 //Allow setting the current stock of a Product object.
 bool ProductSetStock(Product *prod, uint8_t s) {
+	if(s > 127) {
+		return false;
+	}
 	prod->stock = s;
 	return true;
 }
