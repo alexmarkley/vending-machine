@@ -31,6 +31,11 @@ int8_t ProductGetStock(Product *prod) {
 	return prod->stock;
 }
 
+//Allow setting the current value of a Product object.
+bool ProductSetValue(Product *prod, uint8_t v) {
+	return true;
+}
+
 //Return the current value of a Product object.
 int8_t ProductGetValue(Product *prod) {
 	return prod->value;

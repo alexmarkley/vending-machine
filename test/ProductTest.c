@@ -37,6 +37,11 @@ void test_ProductGetValueShouldStartUninitialized(void) {
 	TEST_ASSERT_EQUAL_INT8(PRODUCT_VALUE_UNINITIALIZED, ProductGetValue(prod));
 }
 
+void test_ProductSetValueShouldReturnTrue(void) {
+	Product *prod = ProductCreate();
+	TEST_ASSERT_TRUE(ProductSetValue(prod, 100));
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_ProductCreateShouldReturnNonNull);
@@ -46,6 +51,7 @@ int main(void) {
 	RUN_TEST(test_ProductSetStockShouldPersist);
 	RUN_TEST(test_ProductSetStockInvalidValueShouldReturnFalse);
 	RUN_TEST(test_ProductGetValueShouldStartUninitialized);
+	RUN_TEST(test_ProductSetValueShouldReturnTrue);
 	return UNITY_END();
 }
 
