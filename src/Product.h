@@ -5,8 +5,7 @@
 #include <stdbool.h>
 
 //Misc definitions.
-#define PRODUCT_STOCK_UNINITIALIZED (-1)
-#define PRODUCT_VALUE_UNINITIALIZED (-1)
+#define PRODUCT_PROPERTY_UNINITIALIZED (-1)
 
 //Define the Product object.
 typedef struct Product {

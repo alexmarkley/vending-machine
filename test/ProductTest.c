@@ -13,7 +13,7 @@ void test_ProductDestroyShouldReturnNull(void) {
 
 void test_ProductGetStockShouldStartUninitialized(void) {
 	Product *prod = ProductCreate();
-	TEST_ASSERT_EQUAL_INT8(PRODUCT_STOCK_UNINITIALIZED, ProductGetStock(prod));
+	TEST_ASSERT_EQUAL_INT8(PRODUCT_PROPERTY_UNINITIALIZED, ProductGetStock(prod));
 	ProductDestroy(prod);
 }
 
@@ -38,7 +38,7 @@ void test_ProductSetStockInvalidValueShouldReturnFalse(void) {
 
 void test_ProductGetValueShouldStartUninitialized(void) {
 	Product *prod = ProductCreate();
-	TEST_ASSERT_EQUAL_INT8(PRODUCT_VALUE_UNINITIALIZED, ProductGetValue(prod));
+	TEST_ASSERT_EQUAL_INT8(PRODUCT_PROPERTY_UNINITIALIZED, ProductGetValue(prod));
 	ProductDestroy(prod);
 }
 

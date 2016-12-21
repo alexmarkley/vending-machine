@@ -6,8 +6,8 @@
 //Create the Product object.
 Product *ProductCreate(void) {
 	Product *p = calloc(1, sizeof(Product));
-	p->stock = PRODUCT_STOCK_UNINITIALIZED;
-	p->value = PRODUCT_VALUE_UNINITIALIZED;
+	p->stock = PRODUCT_PROPERTY_UNINITIALIZED;
+	p->value = PRODUCT_PROPERTY_UNINITIALIZED;
 	return p;
 }
 
