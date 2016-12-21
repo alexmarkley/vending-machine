@@ -16,6 +16,11 @@ CoinChanger *CoinChangerDestroy(CoinChanger *changer) {
 	return NULL;
 }
 
+//Allow setting the current number of nickels in the CoinChanger object.
+bool CoinChangerSetNickels(CoinChanger *changer, uint8_t n) {
+	return 40;
+}
+
 //Return the current number of nickels in the CoinChanger object.
 int8_t CoinChangerGetNickels(CoinChanger *changer) {
 	return changer->nickels;

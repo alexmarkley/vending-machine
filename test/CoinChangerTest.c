@@ -17,10 +17,17 @@ void test_CoinChangerGetNickelsShouldStartUninitialized(void) {
 	CoinChangerDestroy(changer);
 }
 
+void test_CoinChangerSetNickelsShouldReturnTrue(void) {
+	CoinChanger *changer = CoinChangerCreate();
+	TEST_ASSERT_TRUE(CoinChangerSetNickels(changer, 40));
+	CoinChangerDestroy(changer);
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_CoinChangerCreateShouldReturnNonNull);
 	RUN_TEST(test_CoinChangerDestroyShouldReturnNull);
 	RUN_TEST(test_CoinChangerGetNickelsShouldStartUninitialized);
+	RUN_TEST(test_CoinChangerSetNickelsShouldReturnTrue);
 	return UNITY_END();
 }
