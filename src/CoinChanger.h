@@ -10,6 +10,7 @@
 //Define the CoinChanger object.
 typedef struct CoinChanger {
 	int8_t nickels;
+	int8_t dimes;
 } CoinChanger;
 
 //Functions within this module.
@@ -17,6 +18,7 @@ CoinChanger *CoinChangerCreate(void);
 CoinChanger *CoinChangerDestroy(CoinChanger *changer);
 bool CoinChangerSetNickels(CoinChanger *changer, uint8_t n);
 int8_t CoinChangerGetNickels(CoinChanger *changer);
+int8_t CoinChangerGetDimes(CoinChanger *changer);
 
 #define __VENDING_MACHINE_COINCHANGER_H
 #endif

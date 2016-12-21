@@ -7,6 +7,7 @@
 CoinChanger *CoinChangerCreate(void) {
 	CoinChanger *c = calloc(1, sizeof(CoinChanger));
 	c->nickels = COINCHANGER_PROPERTY_UNINITIALIZED;
+	c->dimes = COINCHANGER_PROPERTY_UNINITIALIZED;
 	return c;
 }
 
@@ -28,4 +29,9 @@ bool CoinChangerSetNickels(CoinChanger *changer, uint8_t n) {
 //Return the current number of nickels in the CoinChanger object.
 int8_t CoinChangerGetNickels(CoinChanger *changer) {
 	return changer->nickels;
+}
+
+//Return the current number of dimes in the CoinChanger object.
+int8_t CoinChangerGetDimes(CoinChanger *changer) {
+	return changer->dimes;
 }
