@@ -46,6 +46,10 @@ int8_t CoinChangerGetDimes(CoinChanger *changer) {
 	return changer->dimes;
 }
 
+bool CoinChangerSetQuarters(CoinChanger *changer, uint8_t q) {
+	return true;
+}
+
 //Return the current number of quarters in the CoinChanger object.
 int8_t CoinChangerGetQuarters(CoinChanger *changer) {
 	return changer->quarters;
