@@ -42,6 +42,12 @@ void test_CoinChangerGetDimesShouldStartUninitialized(void) {
 	CoinChangerDestroy(changer);
 }
 
+void test_CoinChangerSetDimesShouldReturnTrue(void) {
+	CoinChanger *changer = CoinChangerCreate();
+	TEST_ASSERT_TRUE(CoinChangerSetDimes(changer, 50));
+	CoinChangerDestroy(changer);
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_CoinChangerCreateShouldReturnNonNull);
@@ -51,5 +57,6 @@ int main(void) {
 	RUN_TEST(test_CoinChangerSetNickelsShouldPersist);
 	RUN_TEST(test_CoinChangerSetNickelsInvalidValueShouldReturnFalse);
 	RUN_TEST(test_CoinChangerGetDimesShouldStartUninitialized);
+	RUN_TEST(test_CoinChangerSetDimesShouldReturnTrue);
 	return UNITY_END();
 }

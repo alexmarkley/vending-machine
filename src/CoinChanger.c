@@ -31,6 +31,11 @@ int8_t CoinChangerGetNickels(CoinChanger *changer) {
 	return changer->nickels;
 }
 
+//Allow setting the current number of dimes in the CoinChanger object.
+bool CoinChangerSetDimes(CoinChanger *changer, uint8_t d) {
+	return true;
+}
+
 //Return the current number of dimes in the CoinChanger object.
 int8_t CoinChangerGetDimes(CoinChanger *changer) {
 	return changer->dimes;

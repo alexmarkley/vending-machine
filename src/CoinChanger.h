@@ -18,6 +18,7 @@ CoinChanger *CoinChangerCreate(void);
 CoinChanger *CoinChangerDestroy(CoinChanger *changer);
 bool CoinChangerSetNickels(CoinChanger *changer, uint8_t n);
 int8_t CoinChangerGetNickels(CoinChanger *changer);
+bool CoinChangerSetDimes(CoinChanger *changer, uint8_t d);
 int8_t CoinChangerGetDimes(CoinChanger *changer);
 
 #define __VENDING_MACHINE_COINCHANGER_H
