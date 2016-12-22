@@ -80,6 +80,12 @@ void test_CoinChangerSetQuartersShouldPersist(void) {
 	CoinChangerDestroy(changer);
 }
 
+void test_CoinChangerSetQuartersInvalidValueShouldReturnFalse(void) {
+	CoinChanger *changer = CoinChangerCreate();
+	TEST_ASSERT_FALSE(CoinChangerSetQuarters(changer, 128));
+	CoinChangerDestroy(changer);
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_CoinChangerCreateShouldReturnNonNull);
@@ -95,5 +101,6 @@ int main(void) {
 	RUN_TEST(test_CoinChangerGetQuartersShouldStartUninitialized);
 	RUN_TEST(test_CoinChangerSetQuartersShouldReturnTrue);
 	RUN_TEST(test_CoinChangerSetQuartersShouldPersist);
+	RUN_TEST(test_CoinChangerSetQuartersInvalidValueShouldReturnFalse);
 	return UNITY_END();
 }
