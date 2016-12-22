@@ -33,6 +33,9 @@ int8_t CoinChangerGetNickels(CoinChanger *changer) {
 
 //Allow setting the current number of dimes in the CoinChanger object.
 bool CoinChangerSetDimes(CoinChanger *changer, uint8_t d) {
+	if(d > 127) {
+		return false;
+	}
 	changer->dimes = d;
 	return true;
 }
