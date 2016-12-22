@@ -47,6 +47,7 @@ int8_t CoinChangerGetDimes(CoinChanger *changer) {
 }
 
 bool CoinChangerSetQuarters(CoinChanger *changer, uint8_t q) {
+	changer->quarters = q;
 	return true;
 }
 
