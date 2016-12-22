@@ -50,8 +50,8 @@ void test_CoinChangerSetDimesShouldReturnTrue(void) {
 
 void test_CoinChangerSetDimesShouldPersist(void) {
 	CoinChanger *changer = CoinChangerCreate();
-	TEST_ASSERT_TRUE(CoinChangerSetDimes(changer, 80));
-	TEST_ASSERT_EQUAL_INT8(80, CoinChangerGetDimes(changer));
+	TEST_ASSERT_TRUE(CoinChangerSetDimes(changer, 100));
+	TEST_ASSERT_EQUAL_INT8(100, CoinChangerGetDimes(changer));
 	CoinChangerDestroy(changer);
 }
 
