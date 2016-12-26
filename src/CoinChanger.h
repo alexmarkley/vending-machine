@@ -23,6 +23,7 @@ bool CoinChangerSetDimes(CoinChanger *changer, uint8_t d);
 int8_t CoinChangerGetDimes(CoinChanger *changer);
 bool CoinChangerSetQuarters(CoinChanger *changer, uint8_t q);
 int8_t CoinChangerGetQuarters(CoinChanger *changer);
+bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount);
 
 #define __VENDING_MACHINE_COINCHANGER_H
 #endif

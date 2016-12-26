@@ -58,3 +58,8 @@ bool CoinChangerSetQuarters(CoinChanger *changer, uint8_t q) {
 int8_t CoinChangerGetQuarters(CoinChanger *changer) {
 	return changer->quarters;
 }
+
+//If possible, using the coins we have in our inventory, make change for the amount requested.
+bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
+	return false;
+}
