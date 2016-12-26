@@ -1,6 +1,8 @@
 
 #include "unity.h"
 #include "CoinChanger.h"
+#include "CoinReturn.h"
+#include "CoinReturnMock.h"
 
 void test_CoinChangerCreateShouldReturnNonNull(void) {
 	TEST_ASSERT_NOT_NULL(CoinChangerCreate());
@@ -92,6 +94,28 @@ void test_CoinChangerMakeChangeForOneDollarWhenThereAreNoCoinsInTheChangerShould
 	CoinChangerDestroy(changer);
 }
 
+void test_CoinChangerMakeChangeForOneDollarWhenThereAreFourQuartersInTheChangerShouldSendFourQuartersAndReturnTrue(void) {
+	CoinChanger *changer = CoinChangerCreate();
+	
+	//Mock CoinReturn, expect four quarters to be ejected.
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
+	
+	//Insert four quarters into the CoinChanger.
+	TEST_ASSERT_TRUE(CoinChangerSetQuarters(changer, 4));
+	TEST_ASSERT_EQUAL_INT8(4, CoinChangerGetQuarters(changer));
+	
+	//Attempt to make change for a dollar.
+	TEST_ASSERT_TRUE(CoinChangerMakeChange(changer, 100));
+	
+	//Confirm that we have no more quarters in our inventory.
+	TEST_ASSERT_EQUAL_INT8(0, CoinChangerGetQuarters(changer));
+	
+	CoinChangerDestroy(changer);
+}
+
 int main(void) {
 	UNITY_BEGIN();
 	RUN_TEST(test_CoinChangerCreateShouldReturnNonNull);
@@ -109,5 +133,6 @@ int main(void) {
 	RUN_TEST(test_CoinChangerSetQuartersShouldPersist);
 	RUN_TEST(test_CoinChangerSetQuartersInvalidValueShouldReturnFalse);
 	RUN_TEST(test_CoinChangerMakeChangeForOneDollarWhenThereAreNoCoinsInTheChangerShouldReturnFalse);
+	RUN_TEST(test_CoinChangerMakeChangeForOneDollarWhenThereAreFourQuartersInTheChangerShouldSendFourQuartersAndReturnTrue);
 	return UNITY_END();
 }

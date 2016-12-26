@@ -63,3 +63,4 @@ int8_t CoinChangerGetQuarters(CoinChanger *changer) {
 bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
 	return false;
 }
+
