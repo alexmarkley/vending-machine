@@ -1,5 +1,6 @@
 
 #include "CoinChanger.h"
+#include "CoinReturn.h"
 
 #include <stdlib.h>
 
@@ -72,9 +73,18 @@ bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
 	
 	//If amount is zero, we successfully made change for the full amount.
 	if(amount == 0) {
-		changer->quarters -= outQuarters;
+		//Ask CoinReturn to eject coins, starting with quarters.
+		for(uint8_t x = 0; x < outQuarters; x++) {
+			//Attempt to eject a coin.
+			if(!CoinReturnEjectCoin(COINRETURN_QUARTER)) {
+				//On failure, return false.
+				return false;
+			}
+			//Update our inventory to match reality.
+			changer->quarters--;
+		}
 		
-		//Success;
+		//Success.
 		return true;
 	}
 	
