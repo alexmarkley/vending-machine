@@ -61,6 +61,24 @@ int8_t CoinChangerGetQuarters(CoinChanger *changer) {
 
 //If possible, using the coins we have in our inventory, make change for the amount requested.
 bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
+	//Determine how much of the amount can be doled out in quarters.
+	uint8_t outQuarters = (uint8_t)(amount / (uint16_t)25);
+	//Less if we are limited by our inventory.
+	if(changer->quarters < outQuarters) {
+		outQuarters = changer->quarters;
+	}
+	//Calculate the remainder.
+	amount -= outQuarters * 25;
+	
+	//If amount is zero, we successfully made change for the full amount.
+	if(amount == 0) {
+		changer->quarters -= outQuarters;
+		
+		//Success;
+		return true;
+	}
+	
+	//We did not successfully make change for the full amount.
 	return false;
 }
 

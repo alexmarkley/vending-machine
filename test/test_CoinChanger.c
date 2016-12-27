@@ -2,7 +2,13 @@
 #include "unity.h"
 #include "CoinChanger.h"
 #include "CoinReturn.h"
-#include "CoinReturnMock.h"
+#include "mock_CoinReturn.h"
+
+void setUp(void) {
+}
+
+void tearDown(void) {
+}
 
 void test_CoinChangerCreateShouldReturnNonNull(void) {
 	TEST_ASSERT_NOT_NULL(CoinChangerCreate());
@@ -116,23 +122,3 @@ void test_CoinChangerMakeChangeForOneDollarWhenThereAreFourQuartersInTheChangerS
 	CoinChangerDestroy(changer);
 }
 
-int main(void) {
-	UNITY_BEGIN();
-	RUN_TEST(test_CoinChangerCreateShouldReturnNonNull);
-	RUN_TEST(test_CoinChangerDestroyShouldReturnNull);
-	RUN_TEST(test_CoinChangerGetNickelsShouldStartUninitialized);
-	RUN_TEST(test_CoinChangerSetNickelsShouldReturnTrue);
-	RUN_TEST(test_CoinChangerSetNickelsShouldPersist);
-	RUN_TEST(test_CoinChangerSetNickelsInvalidValueShouldReturnFalse);
-	RUN_TEST(test_CoinChangerGetDimesShouldStartUninitialized);
-	RUN_TEST(test_CoinChangerSetDimesShouldReturnTrue);
-	RUN_TEST(test_CoinChangerSetDimesShouldPersist);
-	RUN_TEST(test_CoinChangerSetDimesInvalidValueShouldReturnFalse);
-	RUN_TEST(test_CoinChangerGetQuartersShouldStartUninitialized);
-	RUN_TEST(test_CoinChangerSetQuartersShouldReturnTrue);
-	RUN_TEST(test_CoinChangerSetQuartersShouldPersist);
-	RUN_TEST(test_CoinChangerSetQuartersInvalidValueShouldReturnFalse);
-	RUN_TEST(test_CoinChangerMakeChangeForOneDollarWhenThereAreNoCoinsInTheChangerShouldReturnFalse);
-	RUN_TEST(test_CoinChangerMakeChangeForOneDollarWhenThereAreFourQuartersInTheChangerShouldSendFourQuartersAndReturnTrue);
-	return UNITY_END();
-}

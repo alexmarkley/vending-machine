@@ -2,6 +2,12 @@
 #include "unity.h"
 #include "Product.h"
 
+void setUp(void) {
+}
+
+void tearDown(void) {
+}
+
 void test_ProductCreateShouldReturnNonNull(void) {
 	TEST_ASSERT_NOT_NULL(ProductCreate());
 }
@@ -59,20 +65,5 @@ void test_ProductSetValueInvalidValueShouldReturnFalse(void) {
 	Product *prod = ProductCreate();
 	TEST_ASSERT_FALSE(ProductSetValue(prod, 128));
 	ProductDestroy(prod);
-}
-
-int main(void) {
-	UNITY_BEGIN();
-	RUN_TEST(test_ProductCreateShouldReturnNonNull);
-	RUN_TEST(test_ProductDestroyShouldReturnNull);
-	RUN_TEST(test_ProductGetStockShouldStartUninitialized);
-	RUN_TEST(test_ProductSetStockShouldReturnTrue);
-	RUN_TEST(test_ProductSetStockShouldPersist);
-	RUN_TEST(test_ProductSetStockInvalidValueShouldReturnFalse);
-	RUN_TEST(test_ProductGetValueShouldStartUninitialized);
-	RUN_TEST(test_ProductSetValueShouldReturnTrue);
-	RUN_TEST(test_ProductSetValueShouldPersist);
-	RUN_TEST(test_ProductSetValueInvalidValueShouldReturnFalse);
-	return UNITY_END();
 }
 

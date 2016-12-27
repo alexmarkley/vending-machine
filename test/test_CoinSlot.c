@@ -2,6 +2,12 @@
 #include "unity.h"
 #include "CoinSlot.h"
 
+void setUp(void) {
+}
+
+void tearDown(void) {
+}
+
 void test_CoinSlotCreateShouldReturnNonNull(void) {
 	TEST_ASSERT_NOT_NULL(CoinSlotCreate());
 }
@@ -75,17 +81,3 @@ void test_CoinSlotAfterFlushingInsertShouldAcceptAQuarterAndReturnTwentyFive(voi
 	CoinSlotDestroy(slot);
 }
 
-int main(void) {
-	UNITY_BEGIN();
-	RUN_TEST(test_CoinSlotCreateShouldReturnNonNull);
-	RUN_TEST(test_CoinSlotDestroyShouldReturnNull);
-	RUN_TEST(test_CoinSlotInsertShouldRejectPenniesIntoCoinReturn);
-	RUN_TEST(test_CoinSlotInsertShouldAcceptANickelAndReturnFive);
-	RUN_TEST(test_CoinSlotInsertShouldAcceptADimeAndReturnTen);
-	RUN_TEST(test_CoinSlotInsertShouldAcceptAQuarterAndReturnTwentyFive);
-	RUN_TEST(test_CoinSlotInsertShouldAccumulateValueWhileInsertingCoins);
-	RUN_TEST(test_CoinSlotInsertShouldRejectCoinsWhenSlotIsFull);
-	RUN_TEST(test_CoinSlotAfterInsertingFourQuartersValueShouldReturnOneHundred);
-	RUN_TEST(test_CoinSlotAfterFlushingInsertShouldAcceptAQuarterAndReturnTwentyFive);
-	return UNITY_END();
-}
