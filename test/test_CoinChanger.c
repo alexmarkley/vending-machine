@@ -125,7 +125,7 @@ void test_CoinChangerMakeChangeForOneDollarWhenThereAreFourQuartersInTheChangerS
 void test_CoinChangerMakeChangeForSeventyCentsWhenThereAreTwoQuartersAndTwoDimesInTheChangerShouldSendTwoQuartersAndTwoDimesAndReturnTrue(void) {
 	CoinChanger *changer = CoinChangerCreate();
 	
-	//Mock CoinReturn, expect four quarters to be ejected.
+	//Mock CoinReturn, expect two quarters and two dimes to be ejected.
 	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
 	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
 	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
@@ -145,6 +145,38 @@ void test_CoinChangerMakeChangeForSeventyCentsWhenThereAreTwoQuartersAndTwoDimes
 	//Confirm that we have no more quarters or dimes in our inventory.
 	TEST_ASSERT_EQUAL_INT8(0, CoinChangerGetQuarters(changer));
 	TEST_ASSERT_EQUAL_INT8(0, CoinChangerGetDimes(changer));
+	
+	CoinChangerDestroy(changer);
+}
+
+void test_CoinChangerMakeChangeForSixtyFiveCentsWhenChangerIsStockedShouldSendTwoQuartersOneDimeAndOneNickelAndReturnTrue(void) {
+	CoinChanger *changer = CoinChangerCreate();
+	
+	//Mock CoinReturn, expect two quarters, one dime, and one nickel to be ejected.
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_NICKEL, true);
+	
+	//Insert two full rolls of quarters into the CoinChanger.
+	TEST_ASSERT_TRUE(CoinChangerSetQuarters(changer, 80));
+	TEST_ASSERT_EQUAL_INT8(80, CoinChangerGetQuarters(changer));
+	
+	//Insert two full rolls of dimes into the CoinChanger.
+	TEST_ASSERT_TRUE(CoinChangerSetDimes(changer, 100));
+	TEST_ASSERT_EQUAL_INT8(100, CoinChangerGetDimes(changer));
+	
+	//Insert two full rolls of nickels into the CoinChanger.
+	TEST_ASSERT_TRUE(CoinChangerSetNickels(changer, 80));
+	TEST_ASSERT_EQUAL_INT8(80, CoinChangerGetNickels(changer));
+	
+	//Attempt to make change for sixty-five cents.
+	TEST_ASSERT_TRUE(CoinChangerMakeChange(changer, 65));
+	
+	//Confirm that we have correspondingly reduced our inventory.
+	TEST_ASSERT_EQUAL_INT8(78, CoinChangerGetQuarters(changer));
+	TEST_ASSERT_EQUAL_INT8(99, CoinChangerGetDimes(changer));
+	TEST_ASSERT_EQUAL_INT8(79, CoinChangerGetNickels(changer));
 	
 	CoinChangerDestroy(changer);
 }

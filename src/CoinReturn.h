@@ -6,7 +6,8 @@
 
 enum {
 	COINRETURN_QUARTER = 25,
-	COINRETURN_DIME = 10
+	COINRETURN_DIME = 10,
+	COINRETURN_NICKEL = 5
 };
 
 //Functions within this module.
