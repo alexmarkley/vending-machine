@@ -21,6 +21,8 @@ void test_CoinSlotDestroyShouldReturnNull(void) {
 
 void test_CoinSlotInsertShouldRejectPenniesIntoCoinReturn(void) {
 	CoinSlot *slot = CoinSlotCreate();
+	//Mock CoinReturn, expect a penny to be ejected.
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_PENNY, true);
 	TEST_ASSERT_EQUAL_INT16(COINSLOT_REJECTED_COINRETURN, CoinSlotInsertCoin(slot, COIN_PENNY));
 	CoinSlotDestroy(slot);
 }

@@ -22,6 +22,8 @@ CoinSlot *CoinSlotDestroy(CoinSlot *slot) {
 int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin) {
 	//Check coin value for validity.
 	if(coin != COIN_NICKEL && coin != COIN_DIME && coin != COIN_QUARTER) {
+		//Whatever this coin is, it is being/has been ejected via the coin return.
+		CoinReturnEjectCoin(coin);
 		return COINSLOT_REJECTED_COINRETURN;
 	}
 	
