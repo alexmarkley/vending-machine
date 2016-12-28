@@ -62,8 +62,10 @@ int8_t CoinChangerGetQuarters(CoinChanger *changer) {
 
 //If possible, using the coins we have in our inventory, make change for the amount requested.
 bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
+	uint8_t outQuarters = 0, outDimes = 0;
+	
 	//Determine how much of the amount can be doled out in quarters.
-	uint8_t outQuarters = (uint8_t)(amount / (uint16_t)25);
+	outQuarters = (uint8_t)(amount / (uint16_t)25);
 	//Less if we are limited by our inventory.
 	if(changer->quarters < outQuarters) {
 		outQuarters = changer->quarters;
@@ -71,7 +73,19 @@ bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
 	//Calculate the remainder.
 	amount -= outQuarters * 25;
 	
-	//If amount is zero, we successfully made change for the full amount.
+	//Is there a remainder?
+	if(amount > 0) {
+		//Determine how much of the remaining amount can be doled out in dimes.
+		outDimes = (uint8_t)(amount / (uint16_t)10);
+		//Less if we are limited by our inventory.
+		if(changer->dimes < outDimes) {
+			outDimes = changer->dimes;
+		}
+		//Calculate the remainder.
+		amount -= outDimes * 10;
+	}
+	
+	//If remaining amount is zero, we successfully made change for the full amount.
 	if(amount == 0) {
 		//Ask CoinReturn to eject coins, starting with quarters.
 		for(uint8_t x = 0; x < outQuarters; x++) {
@@ -82,6 +96,17 @@ bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
 			}
 			//Update our inventory to match reality.
 			changer->quarters--;
+		}
+		
+		//Next eject Dimes
+		for(uint8_t x = 0; x < outDimes; x++) {
+			//Attempt to eject a coin.
+			if(!CoinReturnEjectCoin(COINRETURN_DIME)) {
+				//On failure, return false.
+				return false;
+			}
+			//Update our inventory to match reality.
+			changer->dimes--;
 		}
 		
 		//Success.

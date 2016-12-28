@@ -122,3 +122,30 @@ void test_CoinChangerMakeChangeForOneDollarWhenThereAreFourQuartersInTheChangerS
 	CoinChangerDestroy(changer);
 }
 
+void test_CoinChangerMakeChangeForSeventyCentsWhenThereAreTwoQuartersAndTwoDimesInTheChangerShouldSendTwoQuartersAndTwoDimesAndReturnTrue(void) {
+	CoinChanger *changer = CoinChangerCreate();
+	
+	//Mock CoinReturn, expect four quarters to be ejected.
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
+	
+	//Insert two quarters into the CoinChanger.
+	TEST_ASSERT_TRUE(CoinChangerSetQuarters(changer, 2));
+	TEST_ASSERT_EQUAL_INT8(2, CoinChangerGetQuarters(changer));
+	
+	//Insert two dimes into the CoinChanger.
+	TEST_ASSERT_TRUE(CoinChangerSetDimes(changer, 2));
+	TEST_ASSERT_EQUAL_INT8(2, CoinChangerGetDimes(changer));
+	
+	//Attempt to make change for seventy cents.
+	TEST_ASSERT_TRUE(CoinChangerMakeChange(changer, 70));
+	
+	//Confirm that we have no more quarters or dimes in our inventory.
+	TEST_ASSERT_EQUAL_INT8(0, CoinChangerGetQuarters(changer));
+	TEST_ASSERT_EQUAL_INT8(0, CoinChangerGetDimes(changer));
+	
+	CoinChangerDestroy(changer);
+}
+

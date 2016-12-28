@@ -5,7 +5,8 @@
 #include <stdbool.h>
 
 enum {
-	COINRETURN_QUARTER = 25
+	COINRETURN_QUARTER = 25,
+	COINRETURN_DIME = 10
 };
 
 //Functions within this module.
