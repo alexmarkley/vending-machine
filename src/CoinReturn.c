@@ -10,6 +10,9 @@ bool CoinReturnEjectCoin(uint8_t coin) {
 		case COIN_PENNY:
 			CommonOutput(COINRETURN_PENNY_MSG);
 			break;
+		case COIN_NICKEL:
+			CommonOutput(COINRETURN_NICKEL_MSG);
+			break;
 	}
 	return true;
 }
