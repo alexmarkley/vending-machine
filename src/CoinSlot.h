@@ -2,6 +2,7 @@
 #ifndef __VENDING_MACHINE_COINSLOT_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 //Enumerations within this module.
 enum {
@@ -31,6 +32,7 @@ CoinSlot *CoinSlotDestroy(CoinSlot *slot);
 int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin);
 uint16_t CoinSlotValue(CoinSlot *slot);
 void CoinSlotFlush(CoinSlot *slot);
+bool CoinSlotReturnAll(CoinSlot *slot);
 
 #define __VENDING_MACHINE_COINSLOT_H
 #endif

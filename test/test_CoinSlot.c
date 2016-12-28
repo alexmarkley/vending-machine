@@ -1,6 +1,8 @@
 
 #include "unity.h"
 #include "CoinSlot.h"
+#include "CoinReturn.h"
+#include "mock_CoinReturn.h"
 
 void setUp(void) {
 }
@@ -78,6 +80,28 @@ void test_CoinSlotAfterFlushingInsertShouldAcceptAQuarterAndReturnTwentyFive(voi
 	//Flush everything out of the CoinSlot
 	CoinSlotFlush(slot);
 	TEST_ASSERT_EQUAL_INT16(25, CoinSlotInsertCoin(slot, COINSLOT_QUARTER));
+	CoinSlotDestroy(slot);
+}
+
+void test_CoinSlotReturnAllShouldReturnInsertedCoins(void) {
+	CoinSlot *slot = CoinSlotCreate();
+	
+	//Mock CoinReturn, expect a nickel, a dime, and a quarter to be ejected.
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_NICKEL, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
+	
+	//Insert coins into the CoinSlot
+	TEST_ASSERT_EQUAL_INT16(5, CoinSlotInsertCoin(slot, COINSLOT_NICKEL));
+	TEST_ASSERT_EQUAL_INT16(15, CoinSlotInsertCoin(slot, COINSLOT_DIME));
+	TEST_ASSERT_EQUAL_INT16(40, CoinSlotInsertCoin(slot, COINSLOT_QUARTER));
+	
+	//Engage the coin return
+	TEST_ASSERT_TRUE(CoinSlotReturnAll(slot));
+	
+	//Confirm that the CoinSlot's value is now zero.
+	TEST_ASSERT_EQUAL_INT16(0, CoinSlotValue(slot));
+	
 	CoinSlotDestroy(slot);
 }
 

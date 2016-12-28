@@ -1,5 +1,6 @@
 
 #include "CoinSlot.h"
+#include "CoinReturn.h"
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -59,3 +60,23 @@ void CoinSlotFlush(CoinSlot *slot) {
 		slot->intake[i] = 0;
 	}
 }
+
+//Send all of the coins in the CoinSlot back via the CoinReturn.
+bool CoinSlotReturnAll(CoinSlot *slot) {
+	bool success = true;
+	
+	//Loop through the intake of this CoinSlot.
+	for(uint8_t i = 0; slot->intake[i]; i++) {
+		//Eject this coin via the CoinReturn.
+		if(!CoinReturnEjectCoin(slot->intake[i])) {
+			success = false;
+			break;
+		}
+	}
+	
+	//Flush the CoinSlot.
+	CoinSlotFlush(slot);
+	
+	return success;
+}
+
