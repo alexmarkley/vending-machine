@@ -5,6 +5,7 @@
 #include <stdbool.h>
 
 #define COINRETURN_INVALID_MSG "CoinReturn: Invalid Coin Ejected"
+#define COINRETURN_PENNY_MSG "CoinReturn: Penny Ejected"
 
 //Functions within this module.
 bool CoinReturnEjectCoin(uint8_t coin);
