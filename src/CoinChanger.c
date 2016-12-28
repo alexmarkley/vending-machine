@@ -68,7 +68,7 @@ bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
 	outQuarters = (uint8_t)(amount / (uint16_t)25);
 	//Less if we are limited by our inventory.
 	if(changer->quarters < outQuarters) {
-		outQuarters = changer->quarters;
+		outQuarters = (changer->quarters > 0) ? changer->quarters : 0;
 	}
 	//Calculate the remainder.
 	amount -= outQuarters * 25;
@@ -79,7 +79,7 @@ bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
 		outDimes = (uint8_t)(amount / (uint16_t)10);
 		//Less if we are limited by our inventory.
 		if(changer->dimes < outDimes) {
-			outDimes = changer->dimes;
+			outDimes = (changer->dimes > 0) ? changer->dimes : 0;
 		}
 		//Calculate the remainder.
 		amount -= outDimes * 10;
@@ -91,7 +91,7 @@ bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
 		outNickels = (uint8_t)(amount / (uint16_t)5);
 		//Less if we are limited by our inventory.
 		if(changer->nickels < outNickels) {
-			outNickels = changer->nickels;
+			outNickels = (changer->nickels > 0) ? changer->nickels : 0;
 		}
 		//Calculate the remainder.
 		amount -= outNickels * 5;

@@ -181,3 +181,35 @@ void test_CoinChangerMakeChangeForSixtyFiveCentsWhenChangerIsStockedShouldSendTw
 	CoinChangerDestroy(changer);
 }
 
+void test_CoinChangerMakeChangeForTwentyFiveCentsWhenThereAreTwoDimesAndOneNickelInTheChangerShouldSendTwoDimesAndOneNickelAndReturnTrue(void) {
+	CoinChanger *changer = CoinChangerCreate();
+	
+	//// NOTE: This is a tricky test case. It calls out a bug where uninitialized CoinChanger coin
+	//// values (internally represented as -1) were being multiplied into the remainder (stored
+	//// internally as an unsigned integer) and causing an unsigned integer underflow. Hence the
+	//// CoinChanger would think that it was trying to make change for almost $600 and fail.
+	//// This bug is now fixed.
+	
+	//Mock CoinReturn, expect two dimes and one nickel to be ejected.
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_NICKEL, true);
+	
+	//Insert two dimes into the CoinChanger.
+	TEST_ASSERT_TRUE(CoinChangerSetDimes(changer, 2));
+	TEST_ASSERT_EQUAL_INT8(2, CoinChangerGetDimes(changer));
+	
+	//Insert one nickel into the CoinChanger.
+	TEST_ASSERT_TRUE(CoinChangerSetNickels(changer, 1));
+	TEST_ASSERT_EQUAL_INT8(1, CoinChangerGetNickels(changer));
+	
+	//Attempt to make change for twenty-five cents.
+	TEST_ASSERT_TRUE(CoinChangerMakeChange(changer, 25));
+	
+	//Confirm that we have no more dimes or nickels in our inventory.
+	TEST_ASSERT_EQUAL_INT8(0, CoinChangerGetDimes(changer));
+	TEST_ASSERT_EQUAL_INT8(0, CoinChangerGetNickels(changer));
+	
+	CoinChangerDestroy(changer);
+}
+
