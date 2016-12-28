@@ -27,3 +27,9 @@ void test_CoinReturnEjectNickelOutputsNickelEjected(void) {
 	TEST_ASSERT_TRUE(CoinReturnEjectCoin(COIN_NICKEL));
 }
 
+void test_CoinReturnEjectDimeOutputsDimeEjected(void) {
+	//Mock output, expect CoinReturn to output the correct string.
+	CommonOutput_Expect(COINRETURN_DIME_MSG);
+	TEST_ASSERT_TRUE(CoinReturnEjectCoin(COIN_DIME));
+}
+
