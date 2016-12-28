@@ -16,6 +16,9 @@ bool CoinReturnEjectCoin(uint8_t coin) {
 		case COIN_DIME:
 			CommonOutput(COINRETURN_DIME_MSG);
 			break;
+		case COIN_QUARTER:
+			CommonOutput(COINRETURN_QUARTER_MSG);
+			break;
 	}
 	return true;
 }

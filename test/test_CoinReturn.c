@@ -33,3 +33,9 @@ void test_CoinReturnEjectDimeOutputsDimeEjected(void) {
 	TEST_ASSERT_TRUE(CoinReturnEjectCoin(COIN_DIME));
 }
 
+void test_CoinReturnEjectQuarterOutputsQuarterEjected(void) {
+	//Mock output, expect CoinReturn to output the correct string.
+	CommonOutput_Expect(COINRETURN_QUARTER_MSG);
+	TEST_ASSERT_TRUE(CoinReturnEjectCoin(COIN_QUARTER));
+}
+
