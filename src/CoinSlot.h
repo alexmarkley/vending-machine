@@ -10,13 +10,6 @@ enum {
 	COINSLOT_REJECTED_SLOTFULL = -2
 };
 
-enum {
-	COINSLOT_PENNY = -1,
-	COINSLOT_NICKEL = 5,
-	COINSLOT_DIME = 10,
-	COINSLOT_QUARTER = 25
-};
-
 //Other definitions.
 #define COINSLOT_INTAKE_MAXCOINS 25 //For mechanical reasons, we cannot accept more coins than this at once.
 

@@ -1,7 +1,7 @@
 
 #include "unity.h"
 #include "CoinChanger.h"
-#include "CoinReturn.h"
+#include "Common.h"
 #include "mock_CoinReturn.h"
 
 void setUp(void) {
@@ -104,10 +104,10 @@ void test_CoinChangerMakeChangeForOneDollarWhenThereAreFourQuartersInTheChangerS
 	CoinChanger *changer = CoinChangerCreate();
 	
 	//Mock CoinReturn, expect four quarters to be ejected.
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_QUARTER, true);
 	
 	//Insert four quarters into the CoinChanger.
 	TEST_ASSERT_TRUE(CoinChangerSetQuarters(changer, 4));
@@ -126,10 +126,10 @@ void test_CoinChangerMakeChangeForSeventyCentsWhenThereAreTwoQuartersAndTwoDimes
 	CoinChanger *changer = CoinChangerCreate();
 	
 	//Mock CoinReturn, expect two quarters and two dimes to be ejected.
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_DIME, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_DIME, true);
 	
 	//Insert two quarters into the CoinChanger.
 	TEST_ASSERT_TRUE(CoinChangerSetQuarters(changer, 2));
@@ -153,10 +153,10 @@ void test_CoinChangerMakeChangeForSixtyFiveCentsWhenChangerIsStockedShouldSendTw
 	CoinChanger *changer = CoinChangerCreate();
 	
 	//Mock CoinReturn, expect two quarters, one dime, and one nickel to be ejected.
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_QUARTER, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_NICKEL, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_QUARTER, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_DIME, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_NICKEL, true);
 	
 	//Insert two full rolls of quarters into the CoinChanger.
 	TEST_ASSERT_TRUE(CoinChangerSetQuarters(changer, 80));
@@ -191,9 +191,9 @@ void test_CoinChangerMakeChangeForTwentyFiveCentsWhenThereAreTwoDimesAndOneNicke
 	//// This bug is now fixed.
 	
 	//Mock CoinReturn, expect two dimes and one nickel to be ejected.
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_DIME, true);
-	CoinReturnEjectCoin_ExpectAndReturn(COINRETURN_NICKEL, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_DIME, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_DIME, true);
+	CoinReturnEjectCoin_ExpectAndReturn(COIN_NICKEL, true);
 	
 	//Insert two dimes into the CoinChanger.
 	TEST_ASSERT_TRUE(CoinChangerSetDimes(changer, 2));

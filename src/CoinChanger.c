@@ -1,6 +1,7 @@
 
 #include "CoinChanger.h"
 #include "CoinReturn.h"
+#include "Common.h"
 
 #include <stdlib.h>
 
@@ -102,7 +103,7 @@ bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
 		//Ask CoinReturn to eject coins, starting with quarters.
 		for(uint8_t x = 0; x < outQuarters; x++) {
 			//Attempt to eject a coin.
-			if(!CoinReturnEjectCoin(COINRETURN_QUARTER)) {
+			if(!CoinReturnEjectCoin(COIN_QUARTER)) {
 				//On failure, return false.
 				return false;
 			}
@@ -113,7 +114,7 @@ bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
 		//Next eject Dimes
 		for(uint8_t x = 0; x < outDimes; x++) {
 			//Attempt to eject a coin.
-			if(!CoinReturnEjectCoin(COINRETURN_DIME)) {
+			if(!CoinReturnEjectCoin(COIN_DIME)) {
 				//On failure, return false.
 				return false;
 			}
@@ -124,7 +125,7 @@ bool CoinChangerMakeChange(CoinChanger *changer, uint16_t amount) {
 		//Finally eject Nickels
 		for(uint8_t x = 0; x < outNickels; x++) {
 			//Attempt to eject a coin.
-			if(!CoinReturnEjectCoin(COINRETURN_NICKEL)) {
+			if(!CoinReturnEjectCoin(COIN_NICKEL)) {
 				//On failure, return false.
 				return false;
 			}
