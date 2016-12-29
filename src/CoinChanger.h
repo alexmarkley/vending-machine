@@ -4,9 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-//Misc definitions.
-#define COINCHANGER_PROPERTY_UNINITIALIZED (-1)
-
 //Define the CoinChanger object.
 typedef struct CoinChanger {
 	int8_t nickels;

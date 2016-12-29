@@ -1,13 +1,14 @@
 
 #include "Product.h"
+#include "Common.h"
 
 #include <stdlib.h>
 
 //Create the Product object.
 Product *ProductCreate(void) {
 	Product *p = calloc(1, sizeof(Product));
-	p->stock = PRODUCT_PROPERTY_UNINITIALIZED;
-	p->value = PRODUCT_PROPERTY_UNINITIALIZED;
+	p->stock = PROPERTY_UNINITIALIZED;
+	p->value = PROPERTY_UNINITIALIZED;
 	return p;
 }
 

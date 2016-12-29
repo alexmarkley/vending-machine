@@ -9,6 +9,8 @@ enum {
 	COIN_QUARTER = 25
 };
 
+#define PROPERTY_UNINITIALIZED (-1)
+
 //Functions within this module.
 int CommonOutput(const char *str);
 

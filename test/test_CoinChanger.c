@@ -21,7 +21,7 @@ void test_CoinChangerDestroyShouldReturnNull(void) {
 
 void test_CoinChangerGetNickelsShouldStartUninitialized(void) {
 	CoinChanger *changer = CoinChangerCreate();
-	TEST_ASSERT_EQUAL_INT8(COINCHANGER_PROPERTY_UNINITIALIZED, CoinChangerGetNickels(changer));
+	TEST_ASSERT_EQUAL_INT8(PROPERTY_UNINITIALIZED, CoinChangerGetNickels(changer));
 	CoinChangerDestroy(changer);
 }
 
@@ -46,7 +46,7 @@ void test_CoinChangerSetNickelsInvalidValueShouldReturnFalse(void) {
 
 void test_CoinChangerGetDimesShouldStartUninitialized(void) {
 	CoinChanger *changer = CoinChangerCreate();
-	TEST_ASSERT_EQUAL_INT8(COINCHANGER_PROPERTY_UNINITIALIZED, CoinChangerGetDimes(changer));
+	TEST_ASSERT_EQUAL_INT8(PROPERTY_UNINITIALIZED, CoinChangerGetDimes(changer));
 	CoinChangerDestroy(changer);
 }
 
@@ -71,7 +71,7 @@ void test_CoinChangerSetDimesInvalidValueShouldReturnFalse(void) {
 
 void test_CoinChangerGetQuartersShouldStartUninitialized(void) {
 	CoinChanger *changer = CoinChangerCreate();
-	TEST_ASSERT_EQUAL_INT8(COINCHANGER_PROPERTY_UNINITIALIZED, CoinChangerGetQuarters(changer));
+	TEST_ASSERT_EQUAL_INT8(PROPERTY_UNINITIALIZED, CoinChangerGetQuarters(changer));
 	CoinChangerDestroy(changer);
 }
 

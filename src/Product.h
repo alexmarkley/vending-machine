@@ -4,9 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-//Misc definitions.
-#define PRODUCT_PROPERTY_UNINITIALIZED (-1)
-
 //Define the Product object.
 typedef struct Product {
 	int8_t stock;
