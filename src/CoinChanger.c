@@ -8,9 +8,11 @@
 //Create the CoinChanger object.
 CoinChanger *CoinChangerCreate(void) {
 	CoinChanger *c = calloc(1, sizeof(CoinChanger));
-	c->nickels = PROPERTY_UNINITIALIZED;
-	c->dimes = PROPERTY_UNINITIALIZED;
-	c->quarters = PROPERTY_UNINITIALIZED;
+	if(c) {
+		c->nickels = PROPERTY_UNINITIALIZED;
+		c->dimes = PROPERTY_UNINITIALIZED;
+		c->quarters = PROPERTY_UNINITIALIZED;
+	}
 	return c;
 }
 
