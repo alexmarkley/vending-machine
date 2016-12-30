@@ -37,7 +37,10 @@ int MainEntry(int argc, char **argv) {
 			CommonOutput(MAIN_FATAL_ERROR);
 			return 1;
 		}
-		ProductSetStock(products[x], products_initial_stocks[x]);
+		if(!ProductSetStock(products[x], products_initial_stocks[x])) {
+			CommonOutput(MAIN_FATAL_ERROR);
+			return 1;
+		}
 	}
 	
 	return 0;
