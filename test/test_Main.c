@@ -35,6 +35,11 @@ void test_MainShouldOutputTheInitializationBannerSetUpThreeProductsAndReturnZero
 	//Mock user input. (q for quit)
 	CommonInput_ExpectAndReturn('q');
 	
+	//Mock product destruction.
+	ProductDestroy_ExpectAndReturn(products[0], NULL);
+	ProductDestroy_ExpectAndReturn(products[1], NULL);
+	ProductDestroy_ExpectAndReturn(products[2], NULL);
+	
 	TEST_ASSERT_EQUAL_INT(0, MainEntry(1, args));
 	
 	//Don't leak memory, even in testing.

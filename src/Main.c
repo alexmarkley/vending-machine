@@ -47,6 +47,7 @@ int MainEntry(int argc, char **argv) {
 		}
 	}
 	
+	//Main running loop.
 	while(running) {
 		//Solicit input from the user.
 		printf(" > ");
@@ -56,6 +57,11 @@ int MainEntry(int argc, char **argv) {
 				running = false;
 				break;
 		}
+	}
+	
+	//Clean up!
+	for(uint8_t x = 0; x < 3; x++) {
+		ProductDestroy(products[x]);
 	}
 	
 	return 0;
