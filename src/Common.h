@@ -13,6 +13,7 @@ enum {
 
 //Functions within this module.
 int CommonOutput(const char *str);
+char CommonInput(void);
 
 #define __VENDING_MACHINE_COMMON_H
 #endif

@@ -3,6 +3,9 @@
 #include "Common.h"
 #include "Product.h"
 
+#include <stdbool.h>
+#include <stdio.h>
+
 //Do not define a main() function if we are under test.
 #ifndef TEST
 int main(int argc, char **argv) {
@@ -12,6 +15,7 @@ int main(int argc, char **argv) {
 
 //For all practical purposes, MainEntry() is our actual entry point, because it's testable.
 int MainEntry(int argc, char **argv) {
+	bool running = true;
 	Product *products[3];
 	const uint8_t products_initial_values[3] = {
 		MAIN_PRODA_VALUE,
@@ -40,6 +44,17 @@ int MainEntry(int argc, char **argv) {
 		if(!ProductSetStock(products[x], products_initial_stocks[x])) {
 			CommonOutput(MAIN_FATAL_ERROR);
 			return 1;
+		}
+	}
+	
+	while(running) {
+		//Solicit input from the user.
+		printf(" > ");
+		char command = CommonInput();
+		switch(command) {
+			case 'q':
+				running = false;
+				break;
 		}
 	}
 	

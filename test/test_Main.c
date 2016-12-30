@@ -32,6 +32,9 @@ void test_MainShouldOutputTheInitializationBannerSetUpThreeProductsAndReturnZero
 	ProductSetValue_ExpectAndReturn(products[1], MAIN_PRODB_VALUE, true);
 	ProductSetValue_ExpectAndReturn(products[2], MAIN_PRODC_VALUE, true);
 	
+	//Mock user input. (q for quit)
+	CommonInput_ExpectAndReturn('q');
+	
 	TEST_ASSERT_EQUAL_INT(0, MainEntry(1, args));
 	
 	//Don't leak memory, even in testing.
