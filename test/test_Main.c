@@ -54,3 +54,22 @@ void test_MainShouldFailGracefullyIfProductCreateFailsAndReturnOne(void) {
 	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
 }
 
+void test_MainShouldFailGracefullyIfProductSetValueFailsAndReturnOne(void) {
+	char *args[1] = {"./vending-machine"};
+	Product *products[2];
+	
+	//Mock output, expect the initialization banner and a fatal error.
+	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
+	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
+	
+	//Mock product creation as explained above.
+	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
+	ProductCreate_ExpectAndReturn(products[1] = calloc(1, sizeof(Product))); //PRODB
+	ProductSetStock_ExpectAndReturn(products[0], MAIN_PRODA_STOCK, true);
+	ProductSetValue_ExpectAndReturn(products[0], MAIN_PRODA_VALUE, true);
+	ProductSetValue_ExpectAndReturn(products[1], MAIN_PRODB_VALUE, false); //Simulate a failure here.
+	
+	//Expect main to come back with an error code.
+	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
+}
+
