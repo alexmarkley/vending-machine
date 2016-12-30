@@ -2,6 +2,7 @@
 #ifndef __VENDING_MACHINE_MAIN_H
 
 #define MAIN_INITIALIZATION_MESSAGE "Welcome to the Vending Machine Demo Frontend. For help, see README.md."
+#define MAIN_FATAL_ERROR "There has been a fatal error! Going down..."
 
 #define MAIN_PRODA_NAME "Cola" //The human-readable name of the first product.
 #define MAIN_PRODA_VALUE 100   //The cost of the first product.

@@ -13,22 +13,29 @@ int main(int argc, char **argv) {
 //For all practical purposes, MainEntry() is our actual entry point, because it's testable.
 int MainEntry(int argc, char **argv) {
 	Product *products[3];
+	const uint8_t products_initial_values[3] = {
+		MAIN_PRODA_VALUE,
+		MAIN_PRODB_VALUE,
+		MAIN_PRODC_VALUE
+	};
+	const uint8_t products_initial_stocks[3] = {
+		MAIN_PRODA_STOCK,
+		MAIN_PRODB_STOCK,
+		MAIN_PRODC_STOCK
+	};
 	
 	//Output the initialization banner.
 	CommonOutput(MAIN_INITIALIZATION_MESSAGE);
 	
 	//Set up our products.
-	products[0] = ProductCreate();
-	ProductSetValue(products[0], MAIN_PRODA_VALUE);
-	ProductSetStock(products[0], MAIN_PRODA_STOCK);
-	
-	products[1] = ProductCreate();
-	ProductSetValue(products[1], MAIN_PRODB_VALUE);
-	ProductSetStock(products[1], MAIN_PRODB_STOCK);
-	
-	products[2] = ProductCreate();
-	ProductSetValue(products[2], MAIN_PRODC_VALUE);
-	ProductSetStock(products[2], MAIN_PRODC_STOCK);
+	for(uint8_t x = 0; x < 3; x++) {
+		if(!(products[x] = ProductCreate())) {
+			CommonOutput(MAIN_FATAL_ERROR);
+			return 1;
+		}
+		ProductSetValue(products[x], products_initial_values[x]);
+		ProductSetStock(products[x], products_initial_stocks[x]);
+	}
 	
 	return 0;
 }

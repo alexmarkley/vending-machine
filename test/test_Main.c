@@ -40,3 +40,17 @@ void test_MainShouldOutputTheInitializationBannerSetUpThreeProductsAndReturnZero
 	free(products[2]);
 }
 
+void test_MainShouldFailGracefullyIfProductCreateFailsAndReturnOne(void) {
+	char *args[1] = {"./vending-machine"};
+	
+	//Mock output, expect the initialization banner and a fatal error.
+	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
+	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
+	
+	//Mock product creation. (Return NULL to simulate an allocation failure.)
+	ProductCreate_ExpectAndReturn(NULL); //PRODA
+	
+	//Expect main to come back with an error code.
+	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
+}
+
