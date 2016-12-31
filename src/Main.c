@@ -50,7 +50,10 @@ int MainEntry(int argc, char **argv) {
 	}
 	
 	//Set up the CoinChanger.
-	changer = CoinChangerCreate();
+	if(!(changer = CoinChangerCreate())) {
+		CommonOutput(MAIN_FATAL_ERROR);
+		return 1;
+	}
 	CoinChangerSetQuarters(changer, MAIN_COINCHANGER_QUARTERS);
 	CoinChangerSetDimes(changer, MAIN_COINCHANGER_DIMES);
 	CoinChangerSetNickels(changer, MAIN_COINCHANGER_NICKELS);
