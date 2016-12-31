@@ -70,7 +70,10 @@ int MainEntry(int argc, char **argv) {
 	}
 	
 	//Set up the CoinSlot.
-	slot = CoinSlotCreate();
+	if(!(slot = CoinSlotCreate())) {
+		CommonOutput(MAIN_FATAL_ERROR);
+		return 1;
+	}
 	
 	//Main running loop.
 	while(running) {
