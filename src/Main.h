@@ -17,6 +17,8 @@
 #define MAIN_PRODC_STOCK 100    //The initial inventory of the third product.
 
 #define MAIN_COINCHANGER_QUARTERS 80 //Two full rolls of quarters, for a total of $20
+#define MAIN_COINCHANGER_DIMES 100   //Two full rolls of dimes, for a total of $10
+#define MAIN_COINCHANGER_NICKELS 80  //Two full rolls of nickels, for a total of $4
 
 int MainEntry(int argc, char **argv);
 

@@ -37,6 +37,8 @@ void normalMainSetUp(void) {
 	//Mock coinchanger creation.
 	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
 	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
+	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, true);
+	CoinChangerSetNickels_ExpectAndReturn(changer, MAIN_COINCHANGER_NICKELS, true);
 	
 	//Mock product destruction.
 	ProductDestroy_ExpectAndReturn(products[0], NULL);
@@ -54,7 +56,7 @@ void normalMainTearDown(void) {
 	free(products[2]);
 }
 
-void test_MainShouldOutputTheInitializationBannerSetUpThreeProductsAndReturnZero(void) {
+void test_MainShouldOutputTheInitializationBannerSetUpEverythingAndReturnZero(void) {
 	normalMainSetUp();
 	
 	//Mock user input. (Q for quit)

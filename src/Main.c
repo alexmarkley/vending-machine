@@ -52,6 +52,8 @@ int MainEntry(int argc, char **argv) {
 	//Set up the CoinChanger.
 	changer = CoinChangerCreate();
 	CoinChangerSetQuarters(changer, MAIN_COINCHANGER_QUARTERS);
+	CoinChangerSetDimes(changer, MAIN_COINCHANGER_DIMES);
+	CoinChangerSetNickels(changer, MAIN_COINCHANGER_NICKELS);
 	
 	//Main running loop.
 	while(running) {
