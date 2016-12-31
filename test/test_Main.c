@@ -4,11 +4,13 @@
 #include "Common.h"
 #include "mock_Common.h"
 #include "mock_Product.h"
+#include "mock_CoinChanger.h"
 
 #include <stdlib.h>
 
 char *args[1] = {"./vending-machine"};
 Product *products[3];
+CoinChanger *changer;
 
 void setUp(void) {
 }
@@ -17,7 +19,6 @@ void tearDown(void) {
 }
 
 void normalMainSetUp(void) {
-	
 	//Mock output, expect the initialization banner.
 	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
 	
@@ -33,10 +34,17 @@ void normalMainSetUp(void) {
 	ProductSetValue_ExpectAndReturn(products[1], MAIN_PRODB_VALUE, true);
 	ProductSetValue_ExpectAndReturn(products[2], MAIN_PRODC_VALUE, true);
 	
+	//Mock coinchanger creation.
+	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
+	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
+	
 	//Mock product destruction.
 	ProductDestroy_ExpectAndReturn(products[0], NULL);
 	ProductDestroy_ExpectAndReturn(products[1], NULL);
 	ProductDestroy_ExpectAndReturn(products[2], NULL);
+	
+	//Mock coinchanger destruction.
+	CoinChangerDestroy_ExpectAndReturn(changer, NULL);
 }
 
 void normalMainTearDown(void) {

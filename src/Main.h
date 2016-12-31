@@ -16,6 +16,8 @@
 #define MAIN_PRODC_VALUE 65     //The cost of the third product.
 #define MAIN_PRODC_STOCK 100    //The initial inventory of the third product.
 
+#define MAIN_COINCHANGER_QUARTERS 80 //Two full rolls of quarters, for a total of $20
+
 int MainEntry(int argc, char **argv);
 
 #define __VENDING_MACHINE_MAIN_H
