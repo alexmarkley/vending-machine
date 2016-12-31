@@ -7,15 +7,16 @@
 
 #include <stdlib.h>
 
+char *args[1] = {"./vending-machine"};
+Product *products[3];
+
 void setUp(void) {
 }
 
 void tearDown(void) {
 }
 
-void test_MainShouldOutputTheInitializationBannerSetUpThreeProductsAndReturnZero(void) {
-	char *args[1] = {"./vending-machine"};
-	Product *products[3];
+void normalMainSetUp(void) {
 	
 	//Mock output, expect the initialization banner.
 	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
@@ -32,25 +33,31 @@ void test_MainShouldOutputTheInitializationBannerSetUpThreeProductsAndReturnZero
 	ProductSetValue_ExpectAndReturn(products[1], MAIN_PRODB_VALUE, true);
 	ProductSetValue_ExpectAndReturn(products[2], MAIN_PRODC_VALUE, true);
 	
-	//Mock user input. (q for quit)
-	CommonInput_ExpectAndReturn('q');
-	
 	//Mock product destruction.
 	ProductDestroy_ExpectAndReturn(products[0], NULL);
 	ProductDestroy_ExpectAndReturn(products[1], NULL);
 	ProductDestroy_ExpectAndReturn(products[2], NULL);
-	
-	TEST_ASSERT_EQUAL_INT(0, MainEntry(1, args));
-	
+}
+
+void normalMainTearDown(void) {
 	//Don't leak memory, even in testing.
 	free(products[0]);
 	free(products[1]);
 	free(products[2]);
 }
 
-void test_MainShouldFailGracefullyIfProductCreateFailsAndReturnOne(void) {
-	char *args[1] = {"./vending-machine"};
+void test_MainShouldOutputTheInitializationBannerSetUpThreeProductsAndReturnZero(void) {
+	normalMainSetUp();
 	
+	//Mock user input. (q for quit)
+	CommonInput_ExpectAndReturn('q');
+	
+	TEST_ASSERT_EQUAL_INT(0, MainEntry(1, args));
+	
+	normalMainTearDown();
+}
+
+void test_MainShouldFailGracefullyIfProductCreateFailsAndReturnOne(void) {
 	//Mock output, expect the initialization banner and a fatal error.
 	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
 	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
@@ -63,9 +70,6 @@ void test_MainShouldFailGracefullyIfProductCreateFailsAndReturnOne(void) {
 }
 
 void test_MainShouldFailGracefullyIfProductSetValueFailsAndReturnOne(void) {
-	char *args[1] = {"./vending-machine"};
-	Product *products[2];
-	
 	//Mock output, expect the initialization banner and a fatal error.
 	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
 	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
@@ -86,9 +90,6 @@ void test_MainShouldFailGracefullyIfProductSetValueFailsAndReturnOne(void) {
 }
 
 void test_MainShouldFailGracefullyIfProductSetStockFailsAndReturnOne(void) {
-	char *args[1] = {"./vending-machine"};
-	Product *products[3];
-	
 	//Mock output, expect the initialization banner and a fatal error.
 	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
 	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
