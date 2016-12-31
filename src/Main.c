@@ -54,7 +54,10 @@ int MainEntry(int argc, char **argv) {
 		CommonOutput(MAIN_FATAL_ERROR);
 		return 1;
 	}
-	CoinChangerSetQuarters(changer, MAIN_COINCHANGER_QUARTERS);
+	if(!CoinChangerSetQuarters(changer, MAIN_COINCHANGER_QUARTERS)) {
+		CommonOutput(MAIN_FATAL_ERROR);
+		return 1;
+	}
 	CoinChangerSetDimes(changer, MAIN_COINCHANGER_DIMES);
 	CoinChangerSetNickels(changer, MAIN_COINCHANGER_NICKELS);
 	
