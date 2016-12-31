@@ -106,7 +106,6 @@ void test_MainShouldFailGracefullyIfProductSetStockFailsAndReturnOne(void) {
 	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
 	
 	//Mock product creation.
-	//(Need real allocated memory for the Product objects, not because Main dereferences them (it doesn't) but because Unity compares the memory blocks and it will crash if we use symbols instead of pointers to real allocated memory.)
 	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
 	ProductCreate_ExpectAndReturn(products[1] = calloc(1, sizeof(Product))); //PRODB
 	ProductCreate_ExpectAndReturn(products[2] = calloc(1, sizeof(Product))); //PRODC
@@ -132,7 +131,6 @@ void test_MainShouldFailGracefullyIfCoinChangerCreateFailsAndReturnOne(void) {
 	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
 	
 	//Mock product creation.
-	//(Need real allocated memory for the Product objects, not because Main dereferences them (it doesn't) but because Unity compares the memory blocks and it will crash if we use symbols instead of pointers to real allocated memory.)
 	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
 	ProductCreate_ExpectAndReturn(products[1] = calloc(1, sizeof(Product))); //PRODB
 	ProductCreate_ExpectAndReturn(products[2] = calloc(1, sizeof(Product))); //PRODC
@@ -161,7 +159,6 @@ void test_MainShouldFailGracefullyIfCoinChangerSetQuartersFailsAndReturnOne(void
 	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
 	
 	//Mock product creation.
-	//(Need real allocated memory for the Product objects, not because Main dereferences them (it doesn't) but because Unity compares the memory blocks and it will crash if we use symbols instead of pointers to real allocated memory.)
 	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
 	ProductCreate_ExpectAndReturn(products[1] = calloc(1, sizeof(Product))); //PRODB
 	ProductCreate_ExpectAndReturn(products[2] = calloc(1, sizeof(Product))); //PRODC
@@ -175,6 +172,37 @@ void test_MainShouldFailGracefullyIfCoinChangerSetQuartersFailsAndReturnOne(void
 	//Mock coinchanger creation.
 	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
 	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, false); //Simulate a failure here.
+	
+	//Expect main to come back with an error code.
+	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
+	
+	//Don't leak memory, even in testing.
+	free(products[0]);
+	free(products[1]);
+	free(products[2]);
+	free(changer);
+}
+
+void test_MainShouldFailGracefullyIfCoinChangerSetDimesFailsAndReturnOne(void) {
+	//Mock output, expect the initialization banner and a fatal error.
+	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
+	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
+	
+	//Mock product creation.
+	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
+	ProductCreate_ExpectAndReturn(products[1] = calloc(1, sizeof(Product))); //PRODB
+	ProductCreate_ExpectAndReturn(products[2] = calloc(1, sizeof(Product))); //PRODC
+	ProductSetStock_ExpectAndReturn(products[0], MAIN_PRODA_STOCK, true);
+	ProductSetStock_ExpectAndReturn(products[1], MAIN_PRODB_STOCK, true);
+	ProductSetStock_ExpectAndReturn(products[2], MAIN_PRODC_STOCK, true);
+	ProductSetValue_ExpectAndReturn(products[0], MAIN_PRODA_VALUE, true);
+	ProductSetValue_ExpectAndReturn(products[1], MAIN_PRODB_VALUE, true);
+	ProductSetValue_ExpectAndReturn(products[2], MAIN_PRODC_VALUE, true);
+	
+	//Mock coinchanger creation.
+	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
+	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
+	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, false); //Simulate a failure here.
 	
 	//Expect main to come back with an error code.
 	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
