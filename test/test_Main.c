@@ -49,8 +49,8 @@ void normalMainTearDown(void) {
 void test_MainShouldOutputTheInitializationBannerSetUpThreeProductsAndReturnZero(void) {
 	normalMainSetUp();
 	
-	//Mock user input. (q for quit)
-	CommonInput_ExpectAndReturn('q');
+	//Mock user input. (Q for quit)
+	CommonInput_ExpectAndReturn('Q');
 	
 	TEST_ASSERT_EQUAL_INT(0, MainEntry(1, args));
 	
