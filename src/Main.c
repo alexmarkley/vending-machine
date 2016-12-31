@@ -3,6 +3,7 @@
 #include "Common.h"
 #include "Product.h"
 #include "CoinChanger.h"
+#include "CoinSlot.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -19,6 +20,7 @@ int MainEntry(int argc, char **argv) {
 	bool running = true;
 	Product *products[3];
 	CoinChanger *changer;
+	CoinSlot *slot;
 	const uint8_t products_initial_values[3] = {
 		MAIN_PRODA_VALUE,
 		MAIN_PRODB_VALUE,
@@ -67,6 +69,9 @@ int MainEntry(int argc, char **argv) {
 		return 1;
 	}
 	
+	//Set up the CoinSlot.
+	slot = CoinSlotCreate();
+	
 	//Main running loop.
 	while(running) {
 		//Solicit input from the user.
@@ -84,6 +89,7 @@ int MainEntry(int argc, char **argv) {
 		ProductDestroy(products[x]);
 	}
 	CoinChangerDestroy(changer);
+	CoinSlotDestroy(slot);
 	
 	return 0;
 }

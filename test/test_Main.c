@@ -5,12 +5,14 @@
 #include "mock_Common.h"
 #include "mock_Product.h"
 #include "mock_CoinChanger.h"
+#include "mock_CoinSlot.h"
 
 #include <stdlib.h>
 
 char *args[1] = {"./vending-machine"};
 Product *products[3];
 CoinChanger *changer;
+CoinSlot *slot;
 
 void setUp(void) {
 }
@@ -40,6 +42,9 @@ void normalMainSetUp(void) {
 	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, true);
 	CoinChangerSetNickels_ExpectAndReturn(changer, MAIN_COINCHANGER_NICKELS, true);
 	
+	//Mock coinslot creation.
+	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
+	
 	//Mock product destruction.
 	ProductDestroy_ExpectAndReturn(products[0], NULL);
 	ProductDestroy_ExpectAndReturn(products[1], NULL);
@@ -47,6 +52,9 @@ void normalMainSetUp(void) {
 	
 	//Mock coinchanger destruction.
 	CoinChangerDestroy_ExpectAndReturn(changer, NULL);
+	
+	//Mock coinslot destruction.
+	CoinSlotDestroy_ExpectAndReturn(slot, NULL);
 }
 
 void normalMainTearDown(void) {
@@ -55,6 +63,7 @@ void normalMainTearDown(void) {
 	free(products[1]);
 	free(products[2]);
 	free(changer);
+	free(slot);
 }
 
 void test_MainShouldOutputTheInitializationBannerSetUpEverythingAndReturnZero(void) {
