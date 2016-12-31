@@ -84,6 +84,18 @@ int MainEntry(int argc, char **argv) {
 			case 'Q':
 				running = false;
 				break;
+			case 'p':
+				CoinSlotInsertCoin(slot, COIN_PENNY);
+				break;
+			case 'n':
+				CoinSlotInsertCoin(slot, COIN_NICKEL);
+				break;
+			case 'd':
+				CoinSlotInsertCoin(slot, COIN_DIME);
+				break;
+			case 'q':
+				CoinSlotInsertCoin(slot, COIN_QUARTER);
+				break;
 		}
 	}
 	

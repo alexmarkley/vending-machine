@@ -2,6 +2,7 @@
 #include "unity.h"
 #include "Main.h"
 #include "Common.h"
+#include "CoinSlot.h"
 #include "mock_Common.h"
 #include "mock_Product.h"
 #include "mock_CoinChanger.h"
@@ -288,5 +289,26 @@ void test_MainShouldFailGracefullyIfCoinSlotCreateFailsAndReturnOne(void) {
 	free(products[1]);
 	free(products[2]);
 	free(changer);
+}
+
+void test_MainShouldInsertCorrectCoinsWhenUserInsertsCoins(void) {
+	normalMainSetUp();
+	
+	//Mock coinslot input.
+	CoinSlotInsertCoin_ExpectAndReturn(slot, COIN_PENNY, COINSLOT_REJECTED_COINRETURN);
+	CoinSlotInsertCoin_ExpectAndReturn(slot, COIN_NICKEL, 5);
+	CoinSlotInsertCoin_ExpectAndReturn(slot, COIN_DIME, 15);
+	CoinSlotInsertCoin_ExpectAndReturn(slot, COIN_QUARTER, 40);
+	
+	//Mock user input. (p for Penny, n for Nickel, d for Dime, q for Quarter, then Q for quit)
+	CommonInput_ExpectAndReturn('p');
+	CommonInput_ExpectAndReturn('n');
+	CommonInput_ExpectAndReturn('d');
+	CommonInput_ExpectAndReturn('q');
+	CommonInput_ExpectAndReturn('Q');
+	
+	TEST_ASSERT_EQUAL_INT(0, MainEntry(1, args));
+	
+	normalMainTearDown();
 }
 
