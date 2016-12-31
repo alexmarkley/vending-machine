@@ -26,6 +26,7 @@ int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin);
 uint16_t CoinSlotValue(CoinSlot *slot);
 void CoinSlotFlush(CoinSlot *slot);
 bool CoinSlotReturnAll(CoinSlot *slot);
+void CoinSlotUpdateDisplay(CoinSlot *slot);
 
 #define __VENDING_MACHINE_COINSLOT_H
 #endif

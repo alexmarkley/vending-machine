@@ -75,6 +75,9 @@ int MainEntry(int argc, char **argv) {
 		return 1;
 	}
 	
+	//Initially ask CoinSlot to update the display.
+	CoinSlotUpdateDisplay(slot);
+	
 	//Main running loop.
 	while(running) {
 		//Solicit input from the user.

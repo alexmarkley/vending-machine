@@ -45,6 +45,7 @@ void normalMainSetUp(void) {
 	
 	//Mock coinslot creation.
 	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
+	CoinSlotUpdateDisplay_Expect(slot);
 	
 	//Mock product destruction.
 	ProductDestroy_ExpectAndReturn(products[0], NULL);
