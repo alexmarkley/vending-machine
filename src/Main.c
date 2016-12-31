@@ -62,7 +62,10 @@ int MainEntry(int argc, char **argv) {
 		CommonOutput(MAIN_FATAL_ERROR);
 		return 1;
 	}
-	CoinChangerSetNickels(changer, MAIN_COINCHANGER_NICKELS);
+	if(!CoinChangerSetNickels(changer, MAIN_COINCHANGER_NICKELS)) {
+		CommonOutput(MAIN_FATAL_ERROR);
+		return 1;
+	}
 	
 	//Main running loop.
 	while(running) {
