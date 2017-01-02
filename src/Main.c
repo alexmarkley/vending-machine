@@ -84,6 +84,7 @@ int MainEntry(int argc, char **argv) {
 		printf(" > ");
 		char command = CommonInput();
 		switch(command) {
+			case 0:
 			case 'Q':
 				running = false;
 				break;

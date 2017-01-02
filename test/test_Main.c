@@ -328,3 +328,14 @@ void test_MainShouldTriggerCoinReturnWhenUserRequestsCoinReturn(void) {
 	normalMainTearDown();
 }
 
+void test_MainShouldTerminateGracefullyIfCommonInputReturnsZeroAndReturnZero(void) {
+	normalMainSetUp();
+	
+	//Mock user input. (Zero means EOF)
+	CommonInput_ExpectAndReturn((char)0);
+	
+	TEST_ASSERT_EQUAL_INT(0, MainEntry(1, args));
+	
+	normalMainTearDown();
+}
+
