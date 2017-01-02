@@ -8,9 +8,21 @@ OBJ ?= ${BUILD_DIR}/obj
 OBJ_DIR = ${OBJ}
 CMOCK_DIR ?= ./CMock
 
+MODULES = CoinChanger CoinReturn CoinSlot Common Main Product
+MODULES_DEPS = $(addsuffix .o, $(addprefix ${OBJ_DIR}/, ${MODULES}))
+TARGET = ${BUILD_DIR}/vending-machine
+
+CFLAGS += -Wall -std=c99 -O2 -I./src
+
 default: all
 
-all: test
+all: ${TARGET} test
+
+${TARGET}: ${MODULES_DEPS}
+	${CC} ${CFLAGS} -o $@ $^
+
+${OBJ_DIR}%.o: ${SRC_DIR}%.c
+	${CC} ${CFLAGS} -c -o $@ $<
 
 ${TEST_MAKEFILE}:
 	mkdir -p ${BUILD_DIR}
