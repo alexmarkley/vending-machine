@@ -166,4 +166,22 @@ void test_ProductRequestVendShouldNotVendProductIfNotEnoughMoneyHasBeenInsertedI
 	normalProductTearDown();
 }
 
+void test_ProductRequestVendShouldNotVendProductIfTheProductIsSoldOut(void) {
+	normalProductSetUp();
+	
+	//Check for enough funds to process the transaction and flush the slot once the transaction is complete.
+	CoinSlotValue_ExpectAndReturn(slot, 50);
+	CoinSlotFlush_Expect(slot);
+	
+	//Check for vend message, followed by SOLD OUT message.
+	CommonOutput_ExpectAndReturn(PRODUCT_VEND_MESSAGE " TEST", 1);
+	CommonOutput_ExpectAndReturn(PRODUCT_SOLDOUT_MESSAGE, 1);
+	
+	//Request vending twice. First time will succeed, second time will fail.
+	TEST_ASSERT_TRUE(ProductRequestVend(prod));
+	TEST_ASSERT_FALSE(ProductRequestVend(prod));
+	
+	normalProductTearDown();
+}
+
 

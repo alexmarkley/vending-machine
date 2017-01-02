@@ -83,6 +83,12 @@ bool ProductRequestVend(Product *prod) {
 		return false;
 	}
 	
+	//Confirm that there is enough stock of this product to fulfill the request.
+	if(prod->stock <= 0) {
+		CommonOutput(PRODUCT_SOLDOUT_MESSAGE);
+		return false;
+	}
+	
 	//In order to process a vend request, we need to make sure we have enough funds to cover the transaction.
 	if(CoinSlotValue(prod->slot) < prod->value) {
 		//The user has not inserted enough coins. Display the price and move on.
@@ -101,6 +107,7 @@ bool ProductRequestVend(Product *prod) {
 	CoinSlotFlush(prod->slot);
 	
 	//Finally vend the product.
+	prod->stock--;
 	char vmsg[24];
 	snprintf(vmsg, 24, "%s %s", PRODUCT_VEND_MESSAGE, prod->name);
 	CommonOutput(vmsg);
