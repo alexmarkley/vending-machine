@@ -1,7 +1,12 @@
 
 #include "unity.h"
 #include "Product.h"
+#include "CoinChanger.h"
 #include "Common.h"
+
+#include <stdlib.h>
+
+CoinChanger *changer;
 
 void setUp(void) {
 }
@@ -16,6 +21,14 @@ void test_ProductCreateShouldReturnNonNull(void) {
 void test_ProductDestroyShouldReturnNull(void) {
 	Product *prod = ProductCreate();
 	TEST_ASSERT_NULL(ProductDestroy(prod));
+}
+
+void test_ProductSetCoinChangerShouldSetInternalStateAndReturnTrue(void) {
+	Product *prod = ProductCreate();
+	TEST_ASSERT_TRUE(ProductSetCoinChanger(prod, changer = calloc(1, sizeof(CoinChanger))));
+	TEST_ASSERT_EQUAL_PTR(changer, prod->changer);
+	ProductDestroy(prod);
+	free(changer);
 }
 
 void test_ProductGetNameShouldStartNull(void) {

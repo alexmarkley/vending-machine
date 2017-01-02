@@ -21,6 +21,12 @@ Product *ProductDestroy(Product *prod) {
 	return NULL;
 }
 
+//Allow passing us the CoinChanger object, so we can make change when vending.
+bool ProductSetCoinChanger(Product *prod, CoinChanger *c) {
+	prod->changer = c;
+	return true;
+}
+
 //Allow setting the name of a Product object.
 bool ProductSetName(Product *prod, const char *n) {
 	strncpy(prod->name, n, PRODUCT_NAME_MAXLEN);

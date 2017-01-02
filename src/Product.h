@@ -1,6 +1,7 @@
 
 #ifndef __VENDING_MACHINE_PRODUCT_H
 
+#include "CoinChanger.h"
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -12,11 +13,14 @@ typedef struct Product {
 	char name[PRODUCT_NAME_MAXLEN];
 	int8_t stock;
 	int8_t value;
+	
+	CoinChanger *changer;
 } Product;
 
 //Functions within this module.
 Product *ProductCreate(void);
 Product *ProductDestroy(Product *prod);
+bool ProductSetCoinChanger(Product *prod, CoinChanger *c);
 bool ProductSetName(Product *prod, const char *n);
 char *ProductGetName(Product *prod);
 bool ProductSetStock(Product *prod, uint8_t s);
