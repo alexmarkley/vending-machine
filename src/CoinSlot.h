@@ -12,6 +12,7 @@ enum {
 
 //Other definitions.
 #define COINSLOT_INTAKE_MAXCOINS 25 //For mechanical reasons, we cannot accept more coins than this at once.
+#define COINSLOT_INSERTCOIN_MESSAGE "INSERT COIN"
 
 //Define the CoinSlot object.
 typedef struct CoinSlot {

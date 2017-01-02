@@ -3,8 +3,11 @@
 #include "CoinReturn.h"
 #include "Common.h"
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <stdbool.h>
+#include <inttypes.h>
 
 //Create the CoinSlot object.
 CoinSlot *CoinSlotCreate(void) {
@@ -48,6 +51,9 @@ int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin) {
 		return COINSLOT_REJECTED_SLOTFULL;
 	}
 	
+	//Once the slot value has been incremented, we should update the display with the new value.
+	CoinSlotUpdateDisplay(slot);
+	
 	return slot->value;
 }
 
@@ -79,7 +85,26 @@ bool CoinSlotReturnAll(CoinSlot *slot) {
 	
 	//Flush the CoinSlot.
 	CoinSlotFlush(slot);
+
+	//Once the slot has been flushed, we should update the display with the INSERT COIN message.
+	CoinSlotUpdateDisplay(slot);
 	
 	return success;
+}
+
+//Update the display with the current status of the coin slot.
+void CoinSlotUpdateDisplay(CoinSlot *slot) {
+	if(slot->value == 0) {
+		CommonOutput(COINSLOT_INSERTCOIN_MESSAGE);
+		return;
+	} else {
+		//Break out dollars and cents from the slot value.
+		uint16_t dollars = (slot->value / (uint16_t)100);
+		uint8_t cents = slot->value - (dollars * 100);
+		//Build a display string. (max "$NNNNN.NN\0")
+		char display[10];
+		snprintf(display, 10, "$%" PRIu16 ".%02" PRIu8, dollars, cents);
+		CommonOutput(display);
+	}
 }
 
