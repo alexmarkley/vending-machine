@@ -21,6 +21,11 @@ int MainEntry(int argc, char **argv) {
 	Product *products[3];
 	CoinChanger *changer;
 	CoinSlot *slot;
+	const char products_names[3][PRODUCT_NAME_MAXLEN] = {
+		MAIN_PRODA_NAME,
+		MAIN_PRODB_NAME,
+		MAIN_PRODC_NAME
+	};
 	const uint8_t products_initial_values[3] = {
 		MAIN_PRODA_VALUE,
 		MAIN_PRODB_VALUE,
@@ -65,6 +70,7 @@ int MainEntry(int argc, char **argv) {
 			CommonOutput(MAIN_FATAL_ERROR);
 			return 1;
 		}
+		ProductSetName(products[x], products_names[x]);
 		if(!ProductSetValue(products[x], products_initial_values[x])) {
 			CommonOutput(MAIN_FATAL_ERROR);
 			return 1;

@@ -25,19 +25,8 @@ void normalMainSetUp(void) {
 	//Mock output, expect the initialization banner.
 	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
 	
-	//Mock product creation.
-	//(Need real allocated memory for the Product objects, not because Main dereferences them (it doesn't) but because Unity compares the memory blocks and it will crash if we use symbols instead of pointers to real allocated memory.)
-	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
-	ProductCreate_ExpectAndReturn(products[1] = calloc(1, sizeof(Product))); //PRODB
-	ProductCreate_ExpectAndReturn(products[2] = calloc(1, sizeof(Product))); //PRODC
-	ProductSetStock_ExpectAndReturn(products[0], MAIN_PRODA_STOCK, true);
-	ProductSetStock_ExpectAndReturn(products[1], MAIN_PRODB_STOCK, true);
-	ProductSetStock_ExpectAndReturn(products[2], MAIN_PRODC_STOCK, true);
-	ProductSetValue_ExpectAndReturn(products[0], MAIN_PRODA_VALUE, true);
-	ProductSetValue_ExpectAndReturn(products[1], MAIN_PRODB_VALUE, true);
-	ProductSetValue_ExpectAndReturn(products[2], MAIN_PRODC_VALUE, true);
-	
 	//Mock coinchanger creation.
+	//(Need real allocated memory for the Product objects, not because Main dereferences them (it doesn't) but because Unity compares the memory blocks and it will crash if we use symbols instead of pointers to real allocated memory.)
 	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
 	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
 	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, true);
@@ -46,6 +35,20 @@ void normalMainSetUp(void) {
 	//Mock coinslot creation.
 	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
 	CoinSlotUpdateDisplay_Expect(slot);
+	
+	//Mock product creation.
+	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
+	ProductCreate_ExpectAndReturn(products[1] = calloc(1, sizeof(Product))); //PRODB
+	ProductCreate_ExpectAndReturn(products[2] = calloc(1, sizeof(Product))); //PRODC
+	ProductSetName_ExpectAndReturn(products[0], MAIN_PRODA_NAME, true);
+	ProductSetName_ExpectAndReturn(products[1], MAIN_PRODB_NAME, true);
+	ProductSetName_ExpectAndReturn(products[2], MAIN_PRODC_NAME, true);
+	ProductSetStock_ExpectAndReturn(products[0], MAIN_PRODA_STOCK, true);
+	ProductSetStock_ExpectAndReturn(products[1], MAIN_PRODB_STOCK, true);
+	ProductSetStock_ExpectAndReturn(products[2], MAIN_PRODC_STOCK, true);
+	ProductSetValue_ExpectAndReturn(products[0], MAIN_PRODA_VALUE, true);
+	ProductSetValue_ExpectAndReturn(products[1], MAIN_PRODB_VALUE, true);
+	ProductSetValue_ExpectAndReturn(products[2], MAIN_PRODC_VALUE, true);
 	
 	//Mock product destruction.
 	ProductDestroy_ExpectAndReturn(products[0], NULL);
@@ -121,6 +124,8 @@ void test_MainShouldFailGracefullyIfProductSetValueFailsAndReturnOne(void) {
 	//Mock product creation as explained above.
 	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
 	ProductCreate_ExpectAndReturn(products[1] = calloc(1, sizeof(Product))); //PRODB
+	ProductSetName_ExpectAndReturn(products[0], MAIN_PRODA_NAME, true);
+	ProductSetName_ExpectAndReturn(products[1], MAIN_PRODB_NAME, true);
 	ProductSetStock_ExpectAndReturn(products[0], MAIN_PRODA_STOCK, true);
 	ProductSetValue_ExpectAndReturn(products[0], MAIN_PRODA_VALUE, true);
 	ProductSetValue_ExpectAndReturn(products[1], MAIN_PRODB_VALUE, false); //Simulate a failure here.
@@ -153,6 +158,9 @@ void test_MainShouldFailGracefullyIfProductSetStockFailsAndReturnOne(void) {
 	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
 	ProductCreate_ExpectAndReturn(products[1] = calloc(1, sizeof(Product))); //PRODB
 	ProductCreate_ExpectAndReturn(products[2] = calloc(1, sizeof(Product))); //PRODC
+	ProductSetName_ExpectAndReturn(products[0], MAIN_PRODA_NAME, true);
+	ProductSetName_ExpectAndReturn(products[1], MAIN_PRODB_NAME, true);
+	ProductSetName_ExpectAndReturn(products[2], MAIN_PRODC_NAME, true);
 	ProductSetStock_ExpectAndReturn(products[0], MAIN_PRODA_STOCK, true);
 	ProductSetStock_ExpectAndReturn(products[1], MAIN_PRODB_STOCK, true);
 	ProductSetStock_ExpectAndReturn(products[2], MAIN_PRODC_STOCK, false); //Simulate failure here.
