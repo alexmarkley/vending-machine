@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+#include <inttypes.h>
 
 //Create the Product object.
 Product *ProductCreate(void) {
@@ -82,15 +84,26 @@ bool ProductRequestVend(Product *prod) {
 	}
 	
 	//In order to process a vend request, we need to make sure we have enough funds to cover the transaction.
-	CoinSlotValue(prod->slot);
+	if(CoinSlotValue(prod->slot) < prod->value) {
+		//The user has not inserted enough coins. Display the price and move on.
+		uint8_t dollars = (prod->value / 100);
+		uint8_t cents = prod->value - (dollars * 100);
+		//Build a display string. (max "PRICE $N.NN\0")
+		char pmsg[12];
+		snprintf(pmsg, 12, "PRICE $%" PRIu8 ".%02" PRIu8, dollars, cents);
+		CommonOutput(pmsg);
+		//Update the display with the INSERT COIN message.
+		CoinSlotUpdateDisplay(prod->slot);
+		return false;
+	}
 	
 	//Flush the CoinSlot.
 	CoinSlotFlush(prod->slot);
 	
 	//Finally vend the product.
-	char msg[24];
-	snprintf(msg, 24, "%s %s", PRODUCT_VEND_MESSAGE, prod->name);
-	CommonOutput(msg);
+	char vmsg[24];
+	snprintf(vmsg, 24, "%s %s", PRODUCT_VEND_MESSAGE, prod->name);
+	CommonOutput(vmsg);
 	
 	return true;
 }

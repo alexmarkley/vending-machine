@@ -150,4 +150,20 @@ void test_ProductRequestVendShouldVendProductIfEnoughMoneyHasBeenInsertedIntoCoi
 	normalProductTearDown();
 }
 
+void test_ProductRequestVendShouldNotVendProductIfNotEnoughMoneyHasBeenInsertedIntoCoinSlot(void) {
+	normalProductSetUp();
+	
+	//Check for enough funds to process the transaction (not enough) and expect the display to be explicitly updated once.
+	CoinSlotValue_ExpectAndReturn(slot, 25);
+	CoinSlotUpdateDisplay_Expect(slot);
+	
+	//Check for price message.
+	CommonOutput_ExpectAndReturn("PRICE $0.50", 1);
+	
+	//Request vending.
+	TEST_ASSERT_FALSE(ProductRequestVend(prod));
+	
+	normalProductTearDown();
+}
+
 
