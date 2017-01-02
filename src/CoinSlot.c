@@ -101,9 +101,9 @@ void CoinSlotUpdateDisplay(CoinSlot *slot) {
 		//Break out dollars and cents from the slot value.
 		uint16_t dollars = (slot->value / (uint16_t)100);
 		uint8_t cents = slot->value - (dollars * 100);
-		//Build a display string. (max "$NNNNN.NN\0")
-		char display[10];
-		snprintf(display, 10, "$%" PRIu16 ".%02" PRIu8, dollars, cents);
+		//Build a display string. (max "CoinSlot: $NNNNN.NN\0")
+		char display[20];
+		snprintf(display, 20, COINSLOT_MSG_PREFIX "$%" PRIu16 ".%02" PRIu8, dollars, cents);
 		CommonOutput(display);
 	}
 }

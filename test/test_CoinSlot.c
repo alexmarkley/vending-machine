@@ -37,7 +37,7 @@ void test_CoinSlotInsertShouldAcceptANickelAndReturnFive(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
-	CommonOutput_ExpectAndReturn("$0.05", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.05", 1);
 	
 	TEST_ASSERT_EQUAL_INT16(5, CoinSlotInsertCoin(slot, COIN_NICKEL));
 	CoinSlotDestroy(slot);
@@ -47,7 +47,7 @@ void test_CoinSlotInsertShouldAcceptADimeAndReturnTen(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
-	CommonOutput_ExpectAndReturn("$0.10", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.10", 1);
 	
 	TEST_ASSERT_EQUAL_INT16(10, CoinSlotInsertCoin(slot, COIN_DIME));
 	CoinSlotDestroy(slot);
@@ -57,7 +57,7 @@ void test_CoinSlotInsertShouldAcceptAQuarterAndReturnTwentyFive(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
-	CommonOutput_ExpectAndReturn("$0.25", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.25", 1);
 	
 	TEST_ASSERT_EQUAL_INT16(25, CoinSlotInsertCoin(slot, COIN_QUARTER));
 	CoinSlotDestroy(slot);
@@ -67,9 +67,9 @@ void test_CoinSlotInsertShouldAccumulateValueWhileInsertingCoins(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
-	CommonOutput_ExpectAndReturn("$0.25", 1);
-	CommonOutput_ExpectAndReturn("$0.35", 1);
-	CommonOutput_ExpectAndReturn("$0.40", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.25", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.35", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.40", 1);
 	
 	TEST_ASSERT_EQUAL_INT16(25, CoinSlotInsertCoin(slot, COIN_QUARTER));
 	TEST_ASSERT_EQUAL_INT16(35, CoinSlotInsertCoin(slot, COIN_DIME));
@@ -82,13 +82,13 @@ void test_CoinSlotInsertShouldRejectCoinsWhenSlotIsFull(void) {
 	
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
 	uint16_t value = 0;
-	char display[COINSLOT_INTAKE_MAXCOINS][10];
+	char display[COINSLOT_INTAKE_MAXCOINS][20];
 	for(int i = 0; i < COINSLOT_INTAKE_MAXCOINS; i++) {
 		value += COIN_NICKEL;
 		uint16_t dollars = (value / (uint16_t)100);
 		uint8_t cents = value - (dollars * 100);
-		//Build the mock's expected display string. (max "$NNNNN.NN\0")
-		snprintf(display[i], 10, "$%" PRIu16 ".%02" PRIu8, dollars, cents);
+		//Build the mock's expected display string. (max "CoinSlot: $NNNNN.NN\0")
+		snprintf(display[i], 20, COINSLOT_MSG_PREFIX "$%" PRIu16 ".%02" PRIu8, dollars, cents);
 		CommonOutput_ExpectAndReturn(display[i], 1);
 	}
 	
@@ -104,10 +104,10 @@ void test_CoinSlotAfterInsertingFourQuartersValueShouldReturnOneHundred(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
-	CommonOutput_ExpectAndReturn("$0.25", 1);
-	CommonOutput_ExpectAndReturn("$0.50", 1);
-	CommonOutput_ExpectAndReturn("$0.75", 1);
-	CommonOutput_ExpectAndReturn("$1.00", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.25", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.50", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.75", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$1.00", 1);
 	
 	//Insert a dollar in quarters.
 	CoinSlotInsertCoin(slot, COIN_QUARTER);
@@ -122,9 +122,9 @@ void test_CoinSlotAfterFlushingInsertShouldAcceptAQuarterAndReturnTwentyFive(voi
 	CoinSlot *slot = CoinSlotCreate();
 	
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
-	CommonOutput_ExpectAndReturn("$0.10", 1);
-	CommonOutput_ExpectAndReturn("$0.15", 1);
-	CommonOutput_ExpectAndReturn("$0.25", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.10", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.15", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.25", 1);
 	
 	//Insert a dime and a nickel.
 	CoinSlotInsertCoin(slot, COIN_DIME);
@@ -139,9 +139,9 @@ void test_CoinSlotReturnAllShouldReturnInsertedCoins(void) {
 	CoinSlot *slot = CoinSlotCreate();
 	
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
-	CommonOutput_ExpectAndReturn("$0.05", 1);
-	CommonOutput_ExpectAndReturn("$0.15", 1);
-	CommonOutput_ExpectAndReturn("$0.40", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.05", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.15", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.40", 1);
 	CommonOutput_ExpectAndReturn(COINSLOT_INSERTCOIN_MESSAGE, 1);
 	
 	//Mock CoinReturn, expect a nickel, a dime, and a quarter to be ejected.
