@@ -82,7 +82,10 @@ int MainEntry(int argc, char **argv) {
 			CommonOutput(MAIN_FATAL_ERROR);
 			return 1;
 		}
-		ProductSetCoinChanger(products[x], changer);
+		if(!ProductSetCoinChanger(products[x], changer)) {
+			CommonOutput(MAIN_FATAL_ERROR);
+			return 1;
+		}
 		ProductSetCoinSlot(products[x], slot);
 	}
 	
