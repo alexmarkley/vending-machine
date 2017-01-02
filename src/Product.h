@@ -8,6 +8,7 @@
 
 //Misc definitions.
 #define PRODUCT_NAME_MAXLEN 8
+#define PRODUCT_VEND_MESSAGE "Product: Vended"
 
 //Define the Product object.
 typedef struct Product {

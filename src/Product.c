@@ -1,7 +1,9 @@
 
 #include "Product.h"
+#include "CoinSlot.h"
 #include "Common.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -74,6 +76,22 @@ int8_t ProductGetValue(Product *prod) {
 
 //User requests vending of a Product
 bool ProductRequestVend(Product *prod) {
-	return false;
+	//Don't proceed unless we're fully initialized with a CoinChanger and a CoinSlot.
+	if(prod->slot == NULL || prod->changer == NULL) {
+		return false;
+	}
+	
+	//In order to process a vend request, we need to make sure we have enough funds to cover the transaction.
+	CoinSlotValue(prod->slot);
+	
+	//Flush the CoinSlot.
+	CoinSlotFlush(prod->slot);
+	
+	//Finally vend the product.
+	char msg[24];
+	snprintf(msg, 24, "%s %s", PRODUCT_VEND_MESSAGE, prod->name);
+	CommonOutput(msg);
+	
+	return true;
 }
 
