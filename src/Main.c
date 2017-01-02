@@ -35,22 +35,6 @@ int MainEntry(int argc, char **argv) {
 	//Output the initialization banner.
 	CommonOutput(MAIN_INITIALIZATION_MESSAGE);
 	
-	//Set up our products.
-	for(uint8_t x = 0; x < 3; x++) {
-		if(!(products[x] = ProductCreate())) {
-			CommonOutput(MAIN_FATAL_ERROR);
-			return 1;
-		}
-		if(!ProductSetValue(products[x], products_initial_values[x])) {
-			CommonOutput(MAIN_FATAL_ERROR);
-			return 1;
-		}
-		if(!ProductSetStock(products[x], products_initial_stocks[x])) {
-			CommonOutput(MAIN_FATAL_ERROR);
-			return 1;
-		}
-	}
-	
 	//Set up the CoinChanger.
 	if(!(changer = CoinChangerCreate())) {
 		CommonOutput(MAIN_FATAL_ERROR);
@@ -73,6 +57,22 @@ int MainEntry(int argc, char **argv) {
 	if(!(slot = CoinSlotCreate())) {
 		CommonOutput(MAIN_FATAL_ERROR);
 		return 1;
+	}
+	
+	//Set up our products.
+	for(uint8_t x = 0; x < 3; x++) {
+		if(!(products[x] = ProductCreate())) {
+			CommonOutput(MAIN_FATAL_ERROR);
+			return 1;
+		}
+		if(!ProductSetValue(products[x], products_initial_values[x])) {
+			CommonOutput(MAIN_FATAL_ERROR);
+			return 1;
+		}
+		if(!ProductSetStock(products[x], products_initial_stocks[x])) {
+			CommonOutput(MAIN_FATAL_ERROR);
+			return 1;
+		}
 	}
 	
 	//Initially ask CoinSlot to update the display.
