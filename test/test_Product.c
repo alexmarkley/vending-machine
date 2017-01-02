@@ -158,7 +158,7 @@ void test_ProductRequestVendShouldNotVendProductIfNotEnoughMoneyHasBeenInsertedI
 	CoinSlotUpdateDisplay_Expect(slot);
 	
 	//Check for price message.
-	CommonOutput_ExpectAndReturn("PRICE $0.50", 1);
+	CommonOutput_ExpectAndReturn(PRODUCT_MSG_PREFIX "PRICE $0.50", 1);
 	
 	//Request vending.
 	TEST_ASSERT_FALSE(ProductRequestVend(prod));

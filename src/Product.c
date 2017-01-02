@@ -94,9 +94,9 @@ bool ProductRequestVend(Product *prod) {
 		//The user has not inserted enough coins. Display the price and move on.
 		uint8_t dollars = (prod->value / 100);
 		uint8_t cents = prod->value - (dollars * 100);
-		//Build a display string. (max "PRICE $N.NN\0")
-		char pmsg[12];
-		snprintf(pmsg, 12, "PRICE $%" PRIu8 ".%02" PRIu8, dollars, cents);
+		//Build a display string. (max "Product: PRICE $NNNNN.NN\0")
+		char pmsg[25];
+		snprintf(pmsg, 25, PRODUCT_MSG_PREFIX "PRICE $%" PRIu8 ".%02" PRIu8, dollars, cents);
 		CommonOutput(pmsg);
 		//Update the display with the INSERT COIN message.
 		CoinSlotUpdateDisplay(prod->slot);
