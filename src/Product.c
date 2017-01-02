@@ -27,6 +27,12 @@ bool ProductSetCoinChanger(Product *prod, CoinChanger *c) {
 	return true;
 }
 
+//Allow passing us the CoinSlot object, so we can receive money in exchange for products when vending.
+bool ProductSetCoinSlot(Product *prod, CoinSlot *s) {
+	prod->slot = s;
+	return true;
+}
+
 //Allow setting the name of a Product object.
 bool ProductSetName(Product *prod, const char *n) {
 	strncpy(prod->name, n, PRODUCT_NAME_MAXLEN);

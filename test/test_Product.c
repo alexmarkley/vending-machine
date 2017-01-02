@@ -7,6 +7,7 @@
 #include <stdlib.h>
 
 CoinChanger *changer;
+CoinSlot *slot;
 
 void setUp(void) {
 }
@@ -29,6 +30,14 @@ void test_ProductSetCoinChangerShouldSetInternalStateAndReturnTrue(void) {
 	TEST_ASSERT_EQUAL_PTR(changer, prod->changer);
 	ProductDestroy(prod);
 	free(changer);
+}
+
+void test_ProductSetCoinSlotShouldSetInternalStateAndReturnTrue(void) {
+	Product *prod = ProductCreate();
+	TEST_ASSERT_TRUE(ProductSetCoinSlot(prod, slot = calloc(1, sizeof(CoinSlot))));
+	TEST_ASSERT_EQUAL_PTR(slot, prod->slot);
+	ProductDestroy(prod);
+	free(slot);
 }
 
 void test_ProductGetNameShouldStartNull(void) {
