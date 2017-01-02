@@ -86,7 +86,10 @@ int MainEntry(int argc, char **argv) {
 			CommonOutput(MAIN_FATAL_ERROR);
 			return 1;
 		}
-		ProductSetCoinSlot(products[x], slot);
+		if(!ProductSetCoinSlot(products[x], slot)) {
+			CommonOutput(MAIN_FATAL_ERROR);
+			return 1;
+		}
 	}
 	
 	//Initially ask CoinSlot to update the display.

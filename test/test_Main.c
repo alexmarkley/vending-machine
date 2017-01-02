@@ -321,7 +321,38 @@ void test_MainShouldFailGracefullyIfProductSetCoinChangerFailsAndReturnOne(void)
 	ProductSetName_ExpectAndReturn(products[0], MAIN_PRODA_NAME, true);
 	ProductSetValue_ExpectAndReturn(products[0], MAIN_PRODA_VALUE, true);
 	ProductSetStock_ExpectAndReturn(products[0], MAIN_PRODA_STOCK, true);
-	ProductSetCoinChanger_ExpectAndReturn(products[0], changer, false);
+	ProductSetCoinChanger_ExpectAndReturn(products[0], changer, false); //Simulate failure here.
+	
+	//Expect main to come back with an error code.
+	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
+	
+	//Don't leak memory, even in testing.
+	free(products[0]);
+	free(changer);
+	free(slot);
+}
+
+void test_MainShouldFailGracefullyIfProductSetCoinSlotFailsAndReturnOne(void) {
+	//Mock output, expect the initialization banner and a fatal error.
+	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
+	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
+	
+	//Mock coinchanger creation.
+	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
+	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
+	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, true);
+	CoinChangerSetNickels_ExpectAndReturn(changer, MAIN_COINCHANGER_NICKELS, true);
+	
+	//Mock coinslot creation.
+	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
+	
+	//Mock product creation.
+	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
+	ProductSetName_ExpectAndReturn(products[0], MAIN_PRODA_NAME, true);
+	ProductSetValue_ExpectAndReturn(products[0], MAIN_PRODA_VALUE, true);
+	ProductSetStock_ExpectAndReturn(products[0], MAIN_PRODA_STOCK, true);
+	ProductSetCoinChanger_ExpectAndReturn(products[0], changer, true);
+	ProductSetCoinSlot_ExpectAndReturn(products[0], slot, false); //Simulate failure here.
 	
 	//Expect main to come back with an error code.
 	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
