@@ -339,3 +339,23 @@ void test_MainShouldTerminateGracefullyIfCommonInputReturnsZeroAndReturnZero(voi
 	normalMainTearDown();
 }
 
+void test_MainShouldInitiateProductVendWhenUserRequestsProductVend(void) {
+	normalMainSetUp();
+	
+	//Expect Main to send the request to the appropriate Product objects.
+	ProductRequestVend_ExpectAndReturn(products[0], false);
+	ProductRequestVend_ExpectAndReturn(products[1], false);
+	ProductRequestVend_ExpectAndReturn(products[2], false);
+	
+	//Mock user input. (Products 0-2 mapped to ASCII 1-3)
+	CommonInput_ExpectAndReturn('1');
+	CommonInput_ExpectAndReturn('2');
+	CommonInput_ExpectAndReturn('3');
+	CommonInput_ExpectAndReturn('Q');
+	
+	TEST_ASSERT_EQUAL_INT(0, MainEntry(1, args));
+	
+	normalMainTearDown();
+}
+
+

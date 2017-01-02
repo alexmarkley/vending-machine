@@ -17,6 +17,7 @@ bool ProductSetStock(Product *prod, uint8_t s);
 int8_t ProductGetStock(Product *prod);
 bool ProductSetValue(Product *prod, uint8_t v);
 int8_t ProductGetValue(Product *prod);
+bool ProductRequestVend(Product *prod);
 
 #define __VENDING_MACHINE_PRODUCT_H
 #endif

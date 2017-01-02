@@ -83,6 +83,7 @@ int MainEntry(int argc, char **argv) {
 		//Solicit input from the user.
 		printf(" > ");
 		char command = CommonInput();
+		uint8_t whichProduct;
 		switch(command) {
 			case 0:
 			case 'Q':
@@ -102,6 +103,12 @@ int MainEntry(int argc, char **argv) {
 				break;
 			case 'r':
 				CoinSlotReturnAll(slot);
+				break;
+			case '1':
+			case '2':
+			case '3':
+				whichProduct = command - (uint8_t)'1';
+				ProductRequestVend(products[whichProduct]);
 				break;
 		}
 	}
