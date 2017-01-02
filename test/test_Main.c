@@ -313,3 +313,18 @@ void test_MainShouldInsertCorrectCoinsWhenUserInsertsCoins(void) {
 	normalMainTearDown();
 }
 
+void test_MainShouldTriggerCoinReturnWhenUserRequestsCoinReturn(void) {
+	normalMainSetUp();
+	
+	//Mock coinslot return.
+	CoinSlotReturnAll_ExpectAndReturn(slot, true);
+	
+	//Mock user input. (r for Return, then Q for quit)
+	CommonInput_ExpectAndReturn('r');
+	CommonInput_ExpectAndReturn('Q');
+	
+	TEST_ASSERT_EQUAL_INT(0, MainEntry(1, args));
+	
+	normalMainTearDown();
+}
+

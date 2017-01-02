@@ -99,6 +99,9 @@ int MainEntry(int argc, char **argv) {
 			case 'q':
 				CoinSlotInsertCoin(slot, COIN_QUARTER);
 				break;
+			case 'r':
+				CoinSlotReturnAll(slot);
+				break;
 		}
 	}
 	
