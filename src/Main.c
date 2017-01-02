@@ -80,6 +80,7 @@ int MainEntry(int argc, char **argv) {
 			return 1;
 		}
 		ProductSetCoinChanger(products[x], changer);
+		ProductSetCoinSlot(products[x], slot);
 	}
 	
 	//Initially ask CoinSlot to update the display.

@@ -52,6 +52,9 @@ void normalMainSetUp(void) {
 	ProductSetCoinChanger_ExpectAndReturn(products[0], changer, true);
 	ProductSetCoinChanger_ExpectAndReturn(products[1], changer, true);
 	ProductSetCoinChanger_ExpectAndReturn(products[2], changer, true);
+	ProductSetCoinSlot_ExpectAndReturn(products[0], slot, true);
+	ProductSetCoinSlot_ExpectAndReturn(products[1], slot, true);
+	ProductSetCoinSlot_ExpectAndReturn(products[2], slot, true);
 	
 	//Mock product destruction.
 	ProductDestroy_ExpectAndReturn(products[0], NULL);
@@ -133,6 +136,7 @@ void test_MainShouldFailGracefullyIfProductSetValueFailsAndReturnOne(void) {
 	ProductSetValue_ExpectAndReturn(products[0], MAIN_PRODA_VALUE, true);
 	ProductSetValue_ExpectAndReturn(products[1], MAIN_PRODB_VALUE, false); //Simulate a failure here.
 	ProductSetCoinChanger_ExpectAndReturn(products[0], changer, true);
+	ProductSetCoinSlot_ExpectAndReturn(products[0], slot, true);
 	
 	//Expect main to come back with an error code.
 	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
@@ -173,6 +177,8 @@ void test_MainShouldFailGracefullyIfProductSetStockFailsAndReturnOne(void) {
 	ProductSetStock_ExpectAndReturn(products[2], MAIN_PRODC_STOCK, false); //Simulate failure here.
 	ProductSetCoinChanger_ExpectAndReturn(products[0], changer, true);
 	ProductSetCoinChanger_ExpectAndReturn(products[1], changer, true);
+	ProductSetCoinSlot_ExpectAndReturn(products[0], slot, true);
+	ProductSetCoinSlot_ExpectAndReturn(products[1], slot, true);
 	
 	//Expect main to come back with an error code.
 	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
