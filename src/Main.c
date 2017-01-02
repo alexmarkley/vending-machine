@@ -70,7 +70,10 @@ int MainEntry(int argc, char **argv) {
 			CommonOutput(MAIN_FATAL_ERROR);
 			return 1;
 		}
-		ProductSetName(products[x], products_names[x]);
+		if(!ProductSetName(products[x], products_names[x])) {
+			CommonOutput(MAIN_FATAL_ERROR);
+			return 1;
+		}
 		if(!ProductSetValue(products[x], products_initial_values[x])) {
 			CommonOutput(MAIN_FATAL_ERROR);
 			return 1;
