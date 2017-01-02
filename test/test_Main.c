@@ -88,6 +88,90 @@ void test_MainShouldOutputTheInitializationBannerSetUpEverythingAndReturnZero(vo
 	normalMainTearDown();
 }
 
+void test_MainShouldFailGracefullyIfCoinChangerCreateFailsAndReturnOne(void) {
+	//Mock output, expect the initialization banner and a fatal error.
+	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
+	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
+	
+	//Mock coinchanger creation.
+	CoinChangerCreate_ExpectAndReturn(NULL); //Simulate a failure here.
+	
+	//Expect main to come back with an error code.
+	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
+}
+
+void test_MainShouldFailGracefullyIfCoinChangerSetQuartersFailsAndReturnOne(void) {
+	//Mock output, expect the initialization banner and a fatal error.
+	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
+	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
+	
+	//Mock coinchanger creation.
+	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
+	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, false); //Simulate a failure here.
+	
+	//Expect main to come back with an error code.
+	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
+	
+	//Don't leak memory, even in testing.
+	free(changer);
+}
+
+void test_MainShouldFailGracefullyIfCoinChangerSetDimesFailsAndReturnOne(void) {
+	//Mock output, expect the initialization banner and a fatal error.
+	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
+	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
+	
+	//Mock coinchanger creation.
+	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
+	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
+	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, false); //Simulate a failure here.
+	
+	//Expect main to come back with an error code.
+	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
+	
+	//Don't leak memory, even in testing.
+	free(changer);
+}
+
+void test_MainShouldFailGracefullyIfCoinChangerSetNickelsFailsAndReturnOne(void) {
+	//Mock output, expect the initialization banner and a fatal error.
+	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
+	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
+	
+	//Mock coinchanger creation.
+	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
+	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
+	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, true);
+	CoinChangerSetNickels_ExpectAndReturn(changer, MAIN_COINCHANGER_NICKELS, false); //Simulate a failure here.
+	
+	//Expect main to come back with an error code.
+	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
+	
+	//Don't leak memory, even in testing.
+	free(changer);
+}
+
+void test_MainShouldFailGracefullyIfCoinSlotCreateFailsAndReturnOne(void) {
+	//Mock output, expect the initialization banner and a fatal error.
+	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
+	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
+	
+	//Mock coinchanger creation.
+	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
+	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
+	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, true);
+	CoinChangerSetNickels_ExpectAndReturn(changer, MAIN_COINCHANGER_NICKELS, true);
+	
+	//Mock coinslot creation.
+	CoinSlotCreate_ExpectAndReturn(NULL); //Simulate failure here.
+	
+	//Expect main to come back with an error code.
+	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
+	
+	//Don't leak memory, even in testing.
+	free(changer);
+}
+
 void test_MainShouldFailGracefullyIfProductCreateFailsAndReturnOne(void) {
 	//Mock output, expect the initialization banner and a fatal error.
 	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
@@ -189,90 +273,6 @@ void test_MainShouldFailGracefullyIfProductSetStockFailsAndReturnOne(void) {
 	free(products[2]);
 	free(changer);
 	free(slot);
-}
-
-void test_MainShouldFailGracefullyIfCoinChangerCreateFailsAndReturnOne(void) {
-	//Mock output, expect the initialization banner and a fatal error.
-	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
-	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
-	
-	//Mock coinchanger creation.
-	CoinChangerCreate_ExpectAndReturn(NULL); //Simulate a failure here.
-	
-	//Expect main to come back with an error code.
-	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
-}
-
-void test_MainShouldFailGracefullyIfCoinChangerSetQuartersFailsAndReturnOne(void) {
-	//Mock output, expect the initialization banner and a fatal error.
-	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
-	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
-	
-	//Mock coinchanger creation.
-	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
-	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, false); //Simulate a failure here.
-	
-	//Expect main to come back with an error code.
-	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
-	
-	//Don't leak memory, even in testing.
-	free(changer);
-}
-
-void test_MainShouldFailGracefullyIfCoinChangerSetDimesFailsAndReturnOne(void) {
-	//Mock output, expect the initialization banner and a fatal error.
-	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
-	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
-	
-	//Mock coinchanger creation.
-	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
-	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
-	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, false); //Simulate a failure here.
-	
-	//Expect main to come back with an error code.
-	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
-	
-	//Don't leak memory, even in testing.
-	free(changer);
-}
-
-void test_MainShouldFailGracefullyIfCoinChangerSetNickelsFailsAndReturnOne(void) {
-	//Mock output, expect the initialization banner and a fatal error.
-	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
-	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
-	
-	//Mock coinchanger creation.
-	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
-	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
-	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, true);
-	CoinChangerSetNickels_ExpectAndReturn(changer, MAIN_COINCHANGER_NICKELS, false); //Simulate a failure here.
-	
-	//Expect main to come back with an error code.
-	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
-	
-	//Don't leak memory, even in testing.
-	free(changer);
-}
-
-void test_MainShouldFailGracefullyIfCoinSlotCreateFailsAndReturnOne(void) {
-	//Mock output, expect the initialization banner and a fatal error.
-	CommonOutput_ExpectAndReturn(MAIN_INITIALIZATION_MESSAGE, 1);
-	CommonOutput_ExpectAndReturn(MAIN_FATAL_ERROR, 1);
-	
-	//Mock coinchanger creation.
-	CoinChangerCreate_ExpectAndReturn(changer = calloc(1, sizeof(CoinChanger)));
-	CoinChangerSetQuarters_ExpectAndReturn(changer, MAIN_COINCHANGER_QUARTERS, true);
-	CoinChangerSetDimes_ExpectAndReturn(changer, MAIN_COINCHANGER_DIMES, true);
-	CoinChangerSetNickels_ExpectAndReturn(changer, MAIN_COINCHANGER_NICKELS, true);
-	
-	//Mock coinslot creation.
-	CoinSlotCreate_ExpectAndReturn(NULL); //Simulate failure here.
-	
-	//Expect main to come back with an error code.
-	TEST_ASSERT_EQUAL_INT(1, MainEntry(1, args));
-	
-	//Don't leak memory, even in testing.
-	free(changer);
 }
 
 void test_MainShouldInsertCorrectCoinsWhenUserInsertsCoins(void) {
