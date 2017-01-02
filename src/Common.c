@@ -8,10 +8,12 @@ int CommonOutput(const char *str) {
 }
 
 //Mockable wrapper around scanf. (Again, format conversions are out of scope here.)
-//This also may be untestable from a unit test perspective, because scanf() can't be mocked, and anything more involved would be an integration test.
+//This also may be untestable from a unit test perspective, because fgets() can't be mocked, and anything more involved would be an integration test.
 char CommonInput(void) {
-	char c = '\0';
-	scanf("%c", &c);
-	return c;
+	char line[64];
+	if(fgets(line, 64, stdin)) {
+		return line[0];
+	}
+	return (char)0;
 }
 
