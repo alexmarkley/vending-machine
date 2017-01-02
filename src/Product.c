@@ -47,3 +47,9 @@ bool ProductSetValue(Product *prod, uint8_t v) {
 int8_t ProductGetValue(Product *prod) {
 	return prod->value;
 }
+
+//User requests vending of a Product
+bool ProductRequestVend(Product *prod) {
+	return false;
+}
+

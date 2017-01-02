@@ -68,3 +68,9 @@ void test_ProductSetValueInvalidValueShouldReturnFalse(void) {
 	ProductDestroy(prod);
 }
 
+void test_ProductRequestVendInitiallyShouldFailAndReturnFalse(void) {
+	Product *prod = ProductCreate();
+	TEST_ASSERT_FALSE(ProductRequestVend(prod));
+	ProductDestroy(prod);
+}
+
