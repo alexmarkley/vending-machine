@@ -4,6 +4,7 @@
 #include "CoinChanger.h"
 #include "CoinSlot.h"
 #include "Common.h"
+#include "mock_CoinChanger.h"
 #include "mock_CoinSlot.h"
 #include "mock_Common.h"
 
@@ -184,4 +185,22 @@ void test_ProductRequestVendShouldNotVendProductIfTheProductIsSoldOut(void) {
 	normalProductTearDown();
 }
 
+void test_ProductRequestVendShouldVendProductAndMakeChangeIfMoreThanEnoughMoneyHasBeenInsertedIntoCoinSlot(void) {
+	normalProductSetUp();
+	
+	//Check for enough funds to process the transaction and flush the slot once the transaction is complete.
+	CoinSlotValue_ExpectAndReturn(slot, 65);
+	CoinSlotFlush_Expect(slot);
+	
+	//Expect ProductRequestVend to attempt to make change.
+	CoinChangerMakeChange_ExpectAndReturn(changer, 15, true);
+	
+	//Check for vend message.
+	CommonOutput_ExpectAndReturn(PRODUCT_VEND_MESSAGE " TEST", 1);
+	
+	//Request vending.
+	TEST_ASSERT_TRUE(ProductRequestVend(prod));
+	
+	normalProductTearDown();
+}
 

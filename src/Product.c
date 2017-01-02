@@ -90,7 +90,8 @@ bool ProductRequestVend(Product *prod) {
 	}
 	
 	//In order to process a vend request, we need to make sure we have enough funds to cover the transaction.
-	if(CoinSlotValue(prod->slot) < prod->value) {
+	uint16_t slotValue = CoinSlotValue(prod->slot);
+	if(slotValue < prod->value) {
 		//The user has not inserted enough coins. Display the price and move on.
 		uint8_t dollars = (prod->value / 100);
 		uint8_t cents = prod->value - (dollars * 100);
@@ -101,6 +102,11 @@ bool ProductRequestVend(Product *prod) {
 		//Update the display with the INSERT COIN message.
 		CoinSlotUpdateDisplay(prod->slot);
 		return false;
+	}
+	
+	//If there are still funds left over, we need to attempt to make change before proceeding.
+	if(slotValue > prod->value) {
+		CoinChangerMakeChange(prod->changer, slotValue - prod->value);
 	}
 	
 	//Flush the CoinSlot.
