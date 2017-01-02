@@ -18,6 +18,25 @@ void test_ProductDestroyShouldReturnNull(void) {
 	TEST_ASSERT_NULL(ProductDestroy(prod));
 }
 
+void test_ProductGetNameShouldStartNull(void) {
+	Product *prod = ProductCreate();
+	TEST_ASSERT_EQUAL_STRING("", ProductGetName(prod));
+	ProductDestroy(prod);
+}
+
+void test_ProductSetNameShouldReturnTrue(void) {
+	Product *prod = ProductCreate();
+	TEST_ASSERT_TRUE(ProductSetName(prod, "TEST"));
+	ProductDestroy(prod);
+}
+
+void test_ProductSetNameShouldPersist(void) {
+	Product *prod = ProductCreate();
+	TEST_ASSERT_TRUE(ProductSetName(prod, "TEST"));
+	TEST_ASSERT_EQUAL_STRING("TEST", ProductGetName(prod));
+	ProductDestroy(prod);
+}
+
 void test_ProductGetStockShouldStartUninitialized(void) {
 	Product *prod = ProductCreate();
 	TEST_ASSERT_EQUAL_INT8(PROPERTY_UNINITIALIZED, ProductGetStock(prod));

@@ -3,6 +3,7 @@
 #include "Common.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 //Create the Product object.
 Product *ProductCreate(void) {
@@ -18,6 +19,17 @@ Product *ProductCreate(void) {
 Product *ProductDestroy(Product *prod) {
 	free(prod);
 	return NULL;
+}
+
+//Allow setting the name of a Product object.
+bool ProductSetName(Product *prod, const char *n) {
+	strncpy(prod->name, n, PRODUCT_NAME_MAXLEN);
+	return true;
+}
+
+//Return the name of a Product object.
+char *ProductGetName(Product *prod) {
+	return prod->name;
 }
 
 //Allow setting the current stock of a Product object.

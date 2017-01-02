@@ -4,8 +4,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+//Misc definitions.
+#define PRODUCT_NAME_MAXLEN 8
+
 //Define the Product object.
 typedef struct Product {
+	char name[PRODUCT_NAME_MAXLEN];
 	int8_t stock;
 	int8_t value;
 } Product;
@@ -13,6 +17,8 @@ typedef struct Product {
 //Functions within this module.
 Product *ProductCreate(void);
 Product *ProductDestroy(Product *prod);
+bool ProductSetName(Product *prod, const char *n);
+char *ProductGetName(Product *prod);
 bool ProductSetStock(Product *prod, uint8_t s);
 int8_t ProductGetStock(Product *prod);
 bool ProductSetValue(Product *prod, uint8_t v);
