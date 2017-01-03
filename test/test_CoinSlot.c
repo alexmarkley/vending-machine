@@ -1,6 +1,7 @@
 
 #include "unity.h"
 #include "CoinSlot.h"
+#include "CoinChanger.h"
 #include "Common.h"
 #include "mock_CoinReturn.h"
 #include "mock_Common.h"
@@ -9,6 +10,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <inttypes.h>
+
+CoinChanger *changer;
 
 void setUp(void) {
 }
@@ -174,5 +177,13 @@ void test_CoinSlotUpdateDisplayWhenNoCoinsAreInsertedShouldOutputInsertCoin(void
 	CoinSlotUpdateDisplay(slot);
 	
 	CoinSlotDestroy(slot);
+}
+
+void test_CoinSlotSetCoinChangerShouldSetInternalStateAndReturnTrue(void) {
+	CoinSlot *slot = CoinSlotCreate();
+	TEST_ASSERT_TRUE(CoinSlotSetCoinChanger(slot, changer = calloc(1, sizeof(CoinChanger))));
+	TEST_ASSERT_EQUAL_PTR(changer, slot->changer);
+	CoinSlotDestroy(slot);
+	free(changer);
 }
 

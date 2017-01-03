@@ -21,6 +21,12 @@ CoinSlot *CoinSlotDestroy(CoinSlot *slot) {
 	return NULL;
 }
 
+//Allow passing us the CoinChanger object, so we can check for EXACT CHANGE ONLY conditions.
+bool CoinSlotSetCoinChanger(CoinSlot *slot, CoinChanger *c) {
+	slot->changer = c;
+	return true;
+}
+
 //Insert a coin into the CoinSlot
 int16_t CoinSlotInsertCoin(CoinSlot *slot, uint8_t coin) {
 	//Check coin value for validity.
