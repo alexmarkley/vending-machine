@@ -204,3 +204,22 @@ void test_ProductRequestVendShouldVendProductAndMakeChangeIfMoreThanEnoughMoneyH
 	normalProductTearDown();
 }
 
+void test_ProductRequestVendShouldRollBackTransactionAndReturnCoinsIfMoreThanEnoughMoneyHasBeenInsertedButCoinChangerMakeChangeFails(void) {
+	normalProductSetUp();
+	
+	//Check for enough funds to process the transaction and trigger the coin return once the transaction has been canceled.
+	CoinSlotValue_ExpectAndReturn(slot, 65);
+	CoinSlotReturnAll_ExpectAndReturn(slot, true);
+	
+	//Expect ProductRequestVend to attempt to make change, but cause it to fail. (Not enough coins in the changer.)
+	CoinChangerMakeChange_ExpectAndReturn(changer, 15, false);
+	
+	//Check for vend message.
+	CommonOutput_ExpectAndReturn(PRODUCT_EXACTCHANGE_MESSAGE, 1);
+	
+	//Request vending. (Should fail.)
+	TEST_ASSERT_FALSE(ProductRequestVend(prod));
+	
+	normalProductTearDown();
+}
+

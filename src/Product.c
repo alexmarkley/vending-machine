@@ -106,7 +106,13 @@ bool ProductRequestVend(Product *prod) {
 	
 	//If there are still funds left over, we need to attempt to make change before proceeding.
 	if(slotValue > prod->value) {
-		CoinChangerMakeChange(prod->changer, slotValue - prod->value);
+		//Make sure the changer succeeds before proceeding, otherwise we'll accidentally eat the customer's money.
+		if(!CoinChangerMakeChange(prod->changer, slotValue - prod->value)) {
+			CommonOutput(PRODUCT_EXACTCHANGE_MESSAGE);
+			//Trigger the coin return
+			CoinSlotReturnAll(prod->slot);
+			return false;
+		}
 	}
 	
 	//Flush the CoinSlot.
