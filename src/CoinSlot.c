@@ -101,7 +101,9 @@ bool CoinSlotReturnAll(CoinSlot *slot) {
 //Update the display with the current status of the coin slot.
 void CoinSlotUpdateDisplay(CoinSlot *slot) {
 	if(slot->value == 0) {
-		CommonOutput(COINSLOT_INSERTCOIN_MESSAGE);
+		if(slot->changer != NULL) {
+			CommonOutput(COINSLOT_INSERTCOIN_MESSAGE);
+		}
 		return;
 	} else {
 		//Break out dollars and cents from the slot value.
