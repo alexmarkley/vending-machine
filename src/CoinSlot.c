@@ -68,6 +68,9 @@ void CoinSlotFlush(CoinSlot *slot) {
 	for(uint8_t i = 0; i < COINSLOT_INTAKE_MAXCOINS; i++) {
 		slot->intake[i] = 0;
 	}
+	
+	//Once the slot has been flushed, we should update the display with the INSERT COIN message.
+	CoinSlotUpdateDisplay(slot);
 }
 
 //Send all of the coins in the CoinSlot back via the CoinReturn.
@@ -86,9 +89,6 @@ bool CoinSlotReturnAll(CoinSlot *slot) {
 	//Flush the CoinSlot.
 	CoinSlotFlush(slot);
 
-	//Once the slot has been flushed, we should update the display with the INSERT COIN message.
-	CoinSlotUpdateDisplay(slot);
-	
 	return success;
 }
 

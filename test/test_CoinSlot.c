@@ -124,6 +124,7 @@ void test_CoinSlotAfterFlushingInsertShouldAcceptAQuarterAndReturnTwentyFive(voi
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
 	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.10", 1);
 	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.15", 1);
+	CommonOutput_ExpectAndReturn(COINSLOT_INSERTCOIN_MESSAGE, 1);
 	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.25", 1);
 	
 	//Insert a dime and a nickel.
