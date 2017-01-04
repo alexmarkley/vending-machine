@@ -17,7 +17,7 @@ Requirements
 
 - C Compiler (GCC and Clang are tested)
 - GNU Make
-- Ruby (for the (CMock)[https://github.com/ThrowTheSwitch/CMock] and (Unity)[https://github.com/ThrowTheSwitch/Unity] build processes)
+- Ruby (for the [CMock](https://github.com/ThrowTheSwitch/CMock) and [Unity](https://github.com/ThrowTheSwitch/Unity) build processes)
 
 If you're running on macOS, you will want to make sure Xcode is installed from the Mac App Store, then install the Xcode Command Line Utilities with a command like:
 
@@ -81,15 +81,15 @@ CoinSlot: INSERT COIN
 
 The vending machine is ready to accept user input. There are a few commands:
 
-- *q* - Insert a Quarter
-- *d* - Insert a Dime
-- *n* - Insert a Nickel
-- *p* - Insert a Penny
-- *r* - Coin Return
-- *1* - Select Cola
-- *2* - Select Chips
-- *3* - Select Candy
-- *Q* - Quit
+- **q** - Insert a Quarter
+- **d** - Insert a Dime
+- **n** - Insert a Nickel
+- **p** - Insert a Penny
+- **r** - Coin Return
+- **1** - Select Cola
+- **2** - Select Chips
+- **3** - Select Candy
+- **Q** - Quit
 
 An example session might look like this:
 
