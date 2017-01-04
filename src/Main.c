@@ -63,6 +63,7 @@ int MainEntry(int argc, char **argv) {
 		CommonOutput(MAIN_FATAL_ERROR);
 		return 1;
 	}
+	CoinSlotSetCoinChanger(slot, changer);
 	
 	//Set up our products.
 	for(uint8_t x = 0; x < 3; x++) {

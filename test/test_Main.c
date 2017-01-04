@@ -34,6 +34,7 @@ void normalMainSetUp(void) {
 	
 	//Mock coinslot creation.
 	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
+	CoinSlotSetCoinChanger_ExpectAndReturn(slot, changer, true);
 	CoinSlotUpdateDisplay_Expect(slot);
 	
 	//Mock product creation.
@@ -185,6 +186,7 @@ void test_MainShouldFailGracefullyIfProductCreateFailsAndReturnOne(void) {
 	
 	//Mock coinslot creation.
 	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
+	CoinSlotSetCoinChanger_ExpectAndReturn(slot, changer, true);
 	
 	//Mock product creation. (Return NULL to simulate an allocation failure.)
 	ProductCreate_ExpectAndReturn(NULL); //PRODA
@@ -210,6 +212,7 @@ void test_MainShouldFailGracefullyIfProductSetNameFailsAndReturnOne(void) {
 	
 	//Mock coinslot creation.
 	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
+	CoinSlotSetCoinChanger_ExpectAndReturn(slot, changer, true);
 	
 	//Mock product creation as explained above.
 	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
@@ -237,6 +240,7 @@ void test_MainShouldFailGracefullyIfProductSetValueFailsAndReturnOne(void) {
 	
 	//Mock coinslot creation.
 	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
+	CoinSlotSetCoinChanger_ExpectAndReturn(slot, changer, true);
 	
 	//Mock product creation as explained above.
 	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
@@ -272,6 +276,7 @@ void test_MainShouldFailGracefullyIfProductSetStockFailsAndReturnOne(void) {
 	
 	//Mock coinslot creation.
 	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
+	CoinSlotSetCoinChanger_ExpectAndReturn(slot, changer, true);
 	
 	//Mock product creation.
 	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
@@ -315,6 +320,7 @@ void test_MainShouldFailGracefullyIfProductSetCoinChangerFailsAndReturnOne(void)
 	
 	//Mock coinslot creation.
 	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
+	CoinSlotSetCoinChanger_ExpectAndReturn(slot, changer, true);
 	
 	//Mock product creation.
 	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
@@ -345,6 +351,7 @@ void test_MainShouldFailGracefullyIfProductSetCoinSlotFailsAndReturnOne(void) {
 	
 	//Mock coinslot creation.
 	CoinSlotCreate_ExpectAndReturn(slot = calloc(1, sizeof(CoinSlot)));
+	CoinSlotSetCoinChanger_ExpectAndReturn(slot, changer, true);
 	
 	//Mock product creation.
 	ProductCreate_ExpectAndReturn(products[0] = calloc(1, sizeof(Product))); //PRODA
