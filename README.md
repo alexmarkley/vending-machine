@@ -25,6 +25,8 @@ If you're running on macOS, you will want to make sure Xcode is installed from t
 xcode-select --install
 ```
 
+Once the Xcode Command Line Utilities are installed, you should be ready to go.
+
 
 Cloning This Repository
 -----------------------
@@ -48,7 +50,6 @@ make
 The build process should automatically proceed, with tests running and a test summary printing out at the end like so:
 
 ```
-
 --------------------------
 OVERALL UNITY TEST SUMMARY
 --------------------------
