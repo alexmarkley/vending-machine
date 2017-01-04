@@ -15,6 +15,7 @@ enum {
 #define COINSLOT_MSG_PREFIX "CoinSlot: "
 #define COINSLOT_INTAKE_MAXCOINS 25 //For mechanical reasons, we cannot accept more coins than this at once.
 #define COINSLOT_INSERTCOIN_MESSAGE COINSLOT_MSG_PREFIX "INSERT COIN"
+#define COINSLOT_EXACTCHANGE_MESSAGE COINSLOT_MSG_PREFIX "EXACT CHANGE ONLY"
 
 //Define the CoinSlot object.
 typedef struct CoinSlot {

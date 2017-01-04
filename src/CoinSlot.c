@@ -102,7 +102,14 @@ bool CoinSlotReturnAll(CoinSlot *slot) {
 void CoinSlotUpdateDisplay(CoinSlot *slot) {
 	if(slot->value == 0) {
 		if(slot->changer != NULL) {
-			CommonOutput(COINSLOT_INSERTCOIN_MESSAGE);
+			//If the CoinChanger has at least one coin in it, we can theoretically make change.
+			if(CoinChangerGetQuarters(slot->changer) > 0 || CoinChangerGetDimes(slot->changer) > 0 || CoinChangerGetNickels(slot->changer)) {
+				//If we can make change, the message should be INSERT COIN
+				CommonOutput(COINSLOT_INSERTCOIN_MESSAGE);
+			} else {
+				//If we can't make change, the message is EXACT CHANGE ONLY
+				CommonOutput(COINSLOT_EXACTCHANGE_MESSAGE);
+			}
 		}
 		return;
 	} else {

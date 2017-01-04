@@ -1,8 +1,9 @@
 
 #include "unity.h"
-#include "CoinSlot.h"
 #include "CoinChanger.h"
+#include "CoinSlot.h"
 #include "Common.h"
+#include "mock_CoinChanger.h"
 #include "mock_CoinReturn.h"
 #include "mock_Common.h"
 
@@ -135,6 +136,9 @@ void test_CoinSlotAfterInsertingFourQuartersValueShouldReturnOneHundred(void) {
 void test_CoinSlotAfterFlushingInsertShouldAcceptAQuarterAndReturnTwentyFive(void) {
 	normalCoinSlotSetUp();
 	
+	//Mock an stocked CoinChanger
+	CoinChangerGetQuarters_ExpectAndReturn(changer, 1);
+	
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
 	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.10", 1);
 	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.15", 1);
@@ -153,6 +157,9 @@ void test_CoinSlotAfterFlushingInsertShouldAcceptAQuarterAndReturnTwentyFive(voi
 
 void test_CoinSlotReturnAllShouldReturnInsertedCoins(void) {
 	normalCoinSlotSetUp();
+	
+	//Mock an stocked CoinChanger
+	CoinChangerGetQuarters_ExpectAndReturn(changer, 1);
 	
 	//Expect the display to be implicitly updated with the accumulated value of the inserted coins.
 	CommonOutput_ExpectAndReturn(COINSLOT_MSG_PREFIX "$0.05", 1);
@@ -182,6 +189,9 @@ void test_CoinSlotReturnAllShouldReturnInsertedCoins(void) {
 void test_CoinSlotUpdateDisplayWhenNoCoinsAreInsertedShouldOutputInsertCoin(void) {
 	normalCoinSlotSetUp();
 	
+	//Mock an stocked CoinChanger
+	CoinChangerGetQuarters_ExpectAndReturn(changer, 1);
+	
 	//Expect the INSERT COIN message.
 	CommonOutput_ExpectAndReturn(COINSLOT_INSERTCOIN_MESSAGE, 1);
 	
@@ -205,4 +215,21 @@ void test_CoinSlotUpdateDisplayWhenNotProperlyInitializedShouldOutputNothing(voi
 	
 	CoinSlotDestroy(slot);
 }
+
+void test_CoinSlotUpdateDisplayWhenNoCoinsAreInsertedAndCoinChangerIsEmptyShouldOutputExactChangeOnly(void) {
+	normalCoinSlotSetUp();
+	
+	//Mock an empty CoinChanger
+	CoinChangerGetQuarters_ExpectAndReturn(changer, 0);
+	CoinChangerGetDimes_ExpectAndReturn(changer, 0);
+	CoinChangerGetNickels_ExpectAndReturn(changer, 0);
+	
+	//Expect the INSERT COIN message.
+	CommonOutput_ExpectAndReturn(COINSLOT_EXACTCHANGE_MESSAGE, 1);
+	
+	//Explicitly update the display.
+	CoinSlotUpdateDisplay(slot);
+	
+	normalCoinSlotTearDown();
+	}
 
